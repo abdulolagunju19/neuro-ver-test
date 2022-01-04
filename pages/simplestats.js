@@ -52,7 +52,7 @@ export default function SimpleStats({ posts }) {
               }}
             />
             <Head>
-                <title>Simplistic Statistics - Abdul-Samad Olagunju</title>
+                <title>Tutorials - Abdul-Samad Olagunju</title>
             </Head>
             <Container>
                 <Stack
@@ -80,7 +80,7 @@ export default function SimpleStats({ posts }) {
                             transitionTimingFunction='spring(1 100 10 10)'
                             _hover={{ transform: `translateY(-4px)`}}
                         >
-                            Statistics Tutorials ({posts.length} posts)
+                            Programming Tutorials ({posts.length} posts)
                         </Heading>
                         <InputGroup mb={4} mr={4} w="100%">
                             <Input
