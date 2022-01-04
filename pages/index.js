@@ -210,7 +210,7 @@ export default function Index() {
             <br />
             <div>
             <Image
-              src="/images/westbrook.gif"
+              src="/images/indexpic.gif"
               alt="Photo"
               width={900}
               height={900}
