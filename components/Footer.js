@@ -33,9 +33,9 @@ export const Footer = () => {
                                 color="gray.500"
                                 minWidth="100px"
                                 mr={2}
-                                title="Simplistic Statistics"
+                                title="Tutorials"
                             >
-                                 Stats Tutorials
+                                 Tutorials
                             </Link>
                         </Button>
                     </NextLink>
