@@ -1,8 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/link'
 import "animate.css"
-import Particles from 'react-particles-js';
+import Particles from "react-tsparticles";
 import {
   useColorMode,
   Heading,
@@ -69,7 +68,6 @@ export default function Index() {
       transform: rotate(0deg);
     }
   `
-
   const Bar = styled.div`
     cursor: pointer;
     font-size: 1.5em;
@@ -79,7 +77,14 @@ export default function Index() {
     transform-origin: 70% 70%;
     display: inline-block;
   `
-  
+  const particlesInit = (main) => {
+    console.log(main);
+
+  };
+
+  const particlesLoaded = (container) => {
+    console.log(container);
+  };
   return (
     <>
       <NextSeo
@@ -97,42 +102,6 @@ export default function Index() {
         <Head>
           <title>Home - Abdul-Samad Olagunju</title>
         </Head>
-        {isDesktopOrLaptop && 
-          <Particles
-                style={{ position: 'absolute'}}
-                params={{
-                  particles: {
-                    color: {
-                      value: "#000000"
-                    },
-                    size: {
-                      value: 50,
-                      "anim": {
-                        "speed": 0.2,
-                      }
-                    },
-                    number: {
-                      "value": 10,
-                      "density": {
-                          "enable": false
-                      }
-                  },
-                  "modes": {
-                    "bubble": {
-                        "distance": 250,
-                        "duration": 2,
-                        "size": 0,
-                        "opacity": 1
-                    },
-                    "repulse": {
-                        "distance": 400,
-                        "duration": 4
-                    }
-                  }
-                  }
-                }}
-              />
-        } 
         <Stack
           as="main"
           spacing={8}
@@ -141,42 +110,7 @@ export default function Index() {
           m="0 auto 4rem auto"
           maxWidth="700px"
           px={2}
-          style={{ position: 'relative', overflow: "hidden" }}
         >
-            <Particles
-              style={{ position: 'absolute'}}
-              params={{
-                particles: {
-                  color: {
-                    value: "#000000"
-                  },
-                  size: {
-                    value: 30,
-                    "anim": {
-                      "speed": 0.2,
-                    }
-                  },
-                  number: {
-                    "value": 3,
-                    "density": {
-                        "enable": false
-                    }
-                },
-                "modes": {
-                  "bubble": {
-                      "distance": 250,
-                      "duration": 2,
-                      "size": 0,
-                      "opacity": 1
-                  },
-                  "repulse": {
-                      "distance": 400,
-                      "duration": 4
-                  }
-                }
-                }
-              }}
-            />
           <Flex
             flexDirection="column"
             justifyContent="flex-start"
@@ -184,40 +118,55 @@ export default function Index() {
             maxWidth="700px"
             className="animate__animated animate__fadeInLeft"
           >
-            <div style={{ position: 'absolute'}}>
-              <Particles
-                params={{
-                  particles: {
-                    color: {
-                      value: "#000000"
-                    },
-                    size: {
-                      value: 20,
-                      "anim": {
-                        "speed": 0.2,
-                      }
-                    },
-                    number: {
-                      "value": 2,
-                      "density": {
-                          "enable": false
-                      }
-                  },
-                  "modes": {
-                    "bubble": {
-                        "distance": 250,
-                        "duration": 2,
-                        "size": 0,
-                        "opacity": 1
-                    },
-                    "repulse": {
-                        "distance": 400,
-                        "duration": 4
-                    }
+            <div style={{ position: 'relative'}}>
+            <Particles
+              id="tsparticles"
+              init={particlesInit}
+              loaded={particlesLoaded}
+              options={{
+
+              particles: {
+                number: {
+                  value: 5,
+                  density: {
+                    enable: true,
+                    value_area: 600
                   }
-                  }
-                }}
-              />
+                },
+                color: {
+                    value: "#000000",
+                },
+                lineLinked: {
+                    enable: false,
+                },
+                move: {
+                    bounce: false,
+                    enable: true,
+                    random: true,
+                    speed: 1,
+                    straight: false,
+                },
+                opacity: {
+                    animation: {
+                        enable: true,
+                        minimumValue: 0,
+                        speed: 0.5,
+                        sync: false,
+                    },
+                    random: true,
+                    value: 1,
+                },
+                shape: {
+                    type: "circle",
+                },
+                size: {
+                    random: true,
+                    value: 50,
+                },
+            },
+                detectRetina: true,
+              }}
+            />
             </div> 
             <Heading className="animate__animated animate__flipInY animate__delay-1s" mb={2}>Hi, I'm Abdul-Samad Olagunju<Bar><span>👋</span></Bar></Heading>
             <br />
