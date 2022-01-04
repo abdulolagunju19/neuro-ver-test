@@ -80,7 +80,7 @@ export default function SimpleStats({ posts }) {
                             transitionTimingFunction='spring(1 100 10 10)'
                             _hover={{ transform: `translateY(-4px)`}}
                         >
-                            Programming Tutorials ({posts.length} posts)
+                            Tech Tutorials ({posts.length} posts)
                         </Heading>
                         <InputGroup mb={4} mr={4} w="100%">
                             <Input
