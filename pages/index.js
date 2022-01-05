@@ -214,7 +214,7 @@ export default function Index() {
                   },
                   size: {
                       random: true,
-                      value: 50,
+                      value: 40,
                   },
               },
                   detectRetina: true,
