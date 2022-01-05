@@ -170,58 +170,6 @@ export default function Index() {
               />
               </div> 
             }
-            {isTabletOrMobile &&
-              <div style={{ position: 'relative'}}>
-              <Particles
-                id="tsparticles"
-                init={particlesInit}
-                loaded={particlesLoaded}
-                options={{
-
-                particles: {
-                  number: {
-                    value: 2,
-                    density: {
-                      enable: true,
-                      value_area: 600
-                    }
-                  },
-                  color: {
-                      value: "#000000",
-                  },
-                  lineLinked: {
-                      enable: false,
-                  },
-                  move: {
-                      bounce: false,
-                      enable: true,
-                      random: true,
-                      speed: 1,
-                      straight: false,
-                  },
-                  opacity: {
-                      animation: {
-                          enable: true,
-                          minimumValue: 0,
-                          speed: 0.5,
-                          sync: false,
-                      },
-                      random: true,
-                      value: 1,
-                  },
-                  shape: {
-                      type: "circle",
-                  },
-                  size: {
-                      random: true,
-                      value: 40,
-                  },
-              },
-                  detectRetina: true,
-                }}
-              />
-              </div> 
-            }
             <Heading className="animate__animated animate__flipInY animate__delay-1s" mb={2}>Hi, I'm Abdul-Samad Olagunju<Bar><span>👋</span></Bar></Heading>
             <br />
             <Flex direction='row'>
