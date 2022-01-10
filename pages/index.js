@@ -7,8 +7,12 @@ import {
   Heading,
   Text,
   Flex,
-  Stack
+  Stack,
+  ListItem,
+  OrderedList,
+  Link
 } from '@chakra-ui/react'
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 import TechStack from '../components/TechStack'
 import Container from '../components/Container'
@@ -269,6 +273,36 @@ export default function Index() {
           >
             A simple component library that makes my styling easy.
           </TechStack>
+          <Heading as="h5" size="lg" pt="8" pb="8">
+            Here are some articles to get you started:
+          </Heading>
+          <OrderedList spacing={3}>
+            <ListItem fontSize="xl" color={colorSecondary[colorMode]}>
+              <Link color={colorSecondary[colorMode]} fontSize="xl" href='https://chakra-ui.com' isExternal>
+                Chakra Design system <ExternalLinkIcon mx='5px' />
+              </Link>
+            </ListItem>
+            <ListItem fontSize="xl" color={colorSecondary[colorMode]}>
+              <Link color={colorSecondary[colorMode]} fontSize="xl" href='https://chakra-ui.com' isExternal>
+                Chakra Design system <ExternalLinkIcon mx='5px' />
+              </Link>
+            </ListItem>
+            <ListItem fontSize="xl" color={colorSecondary[colorMode]}>
+              <Link color={colorSecondary[colorMode]} fontSize="xl" href='https://chakra-ui.com' isExternal>
+                Chakra Design system <ExternalLinkIcon mx='5px' />
+              </Link>
+            </ListItem>
+            <ListItem fontSize="xl" color={colorSecondary[colorMode]}>
+              <Link color={colorSecondary[colorMode]} fontSize="xl" href='https://chakra-ui.com' isExternal>
+                Chakra Design system <ExternalLinkIcon mx='5px' />
+              </Link>
+            </ListItem>
+            <ListItem fontSize="xl" color={colorSecondary[colorMode]}>
+              <Link color={colorSecondary[colorMode]} fontSize="xl" href='https://chakra-ui.com' isExternal>
+                Chakra Design system <ExternalLinkIcon mx='5px' />
+              </Link>
+            </ListItem>
+          </OrderedList>
           </Flex>
         </Stack>
         </div>
