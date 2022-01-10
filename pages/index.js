@@ -280,27 +280,27 @@ export default function Index() {
             Here are some articles to get you started:
           </Heading>
           <OrderedList spacing={3}>
-            <ListItem fontSize="xl" color={colorSecondary[colorMode]}>
+            <ListItem fontSize="15px" color={colorSecondary[colorMode]}>
               <Link color={colorSecondary[colorMode]} fontSize="xl" href='https://chakra-ui.com' isExternal>
                 Chakra Design system <ExternalLinkIcon mx='5px' />
               </Link>
             </ListItem>
-            <ListItem fontSize="xl" color={colorSecondary[colorMode]}>
+            <ListItem fontSize="15px" color={colorSecondary[colorMode]}>
               <Link color={colorSecondary[colorMode]} fontSize="xl" href='https://chakra-ui.com' isExternal>
                 Chakra Design system <ExternalLinkIcon mx='5px' />
               </Link>
             </ListItem>
-            <ListItem fontSize="xl" color={colorSecondary[colorMode]}>
+            <ListItem fontSize="15px" color={colorSecondary[colorMode]}>
               <Link color={colorSecondary[colorMode]} fontSize="xl" href='https://chakra-ui.com' isExternal>
                 Chakra Design system <ExternalLinkIcon mx='5px' />
               </Link>
             </ListItem>
-            <ListItem fontSize="xl" color={colorSecondary[colorMode]}>
+            <ListItem fontSize="15px" color={colorSecondary[colorMode]}>
               <Link color={colorSecondary[colorMode]} fontSize="xl" href='https://chakra-ui.com' isExternal>
                 Chakra Design system <ExternalLinkIcon mx='5px' />
               </Link>
             </ListItem>
-            <ListItem fontSize="xl" color={colorSecondary[colorMode]}>
+            <ListItem fontSize="15px" color={colorSecondary[colorMode]}>
               <Link color={colorSecondary[colorMode]} fontSize="xl" href='https://chakra-ui.com' isExternal>
                 Chakra Design system <ExternalLinkIcon mx='5px' />
               </Link>
