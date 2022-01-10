@@ -47,6 +47,7 @@ export default function Index() {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
   const isPortrait = useMediaQuery({ query: '(orientation: portrait)' })
   const isRetina = useMediaQuery({ query: '(min-resolution: 2dppx)' })
+  const isMobile = useMediaQuery({ maxWidth: 767 })
   
   const pulse = keyframes`
     0% {
@@ -307,7 +308,7 @@ export default function Index() {
           </OrderedList>
           </Flex>
         </Stack>
-        {isTabletOrMobile &&
+        {isMobile &&
           <div>
             <Flex align="center" mb={4} direction="column" visibility={'hidden', 'visible', 'visible'}>
             <Stack spacing={4} direction="row" align="center">
