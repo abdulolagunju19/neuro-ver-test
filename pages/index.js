@@ -280,28 +280,28 @@ export default function Index() {
             Here are some articles to get you started:
           </Heading>
           <OrderedList spacing={3}>
-            <ListItem fontSize="15px" color={colorSecondary[colorMode]}>
-              <Link color={colorSecondary[colorMode]} fontSize="xl" href='https://chakra-ui.com' isExternal>
+            <ListItem fontSize="16px" color={colorSecondary[colorMode]}>
+              <Link color={colorSecondary[colorMode]} fontSize="16px" href='https://chakra-ui.com' isExternal>
                 Chakra Design system <ExternalLinkIcon mx='5px' />
               </Link>
             </ListItem>
-            <ListItem fontSize="15px" color={colorSecondary[colorMode]}>
-              <Link color={colorSecondary[colorMode]} fontSize="xl" href='https://chakra-ui.com' isExternal>
+            <ListItem fontSize="16px" color={colorSecondary[colorMode]}>
+              <Link color={colorSecondary[colorMode]} fontSize="16px" href='https://chakra-ui.com' isExternal>
                 Chakra Design system <ExternalLinkIcon mx='5px' />
               </Link>
             </ListItem>
-            <ListItem fontSize="15px" color={colorSecondary[colorMode]}>
-              <Link color={colorSecondary[colorMode]} fontSize="xl" href='https://chakra-ui.com' isExternal>
+            <ListItem fontSize="16px" color={colorSecondary[colorMode]}>
+              <Link color={colorSecondary[colorMode]} fontSize="16px" href='https://chakra-ui.com' isExternal>
                 Chakra Design system <ExternalLinkIcon mx='5px' />
               </Link>
             </ListItem>
-            <ListItem fontSize="15px" color={colorSecondary[colorMode]}>
-              <Link color={colorSecondary[colorMode]} fontSize="xl" href='https://chakra-ui.com' isExternal>
+            <ListItem fontSize="16px" color={colorSecondary[colorMode]}>
+              <Link color={colorSecondary[colorMode]} fontSize="16px" href='https://chakra-ui.com' isExternal>
                 Chakra Design system <ExternalLinkIcon mx='5px' />
               </Link>
             </ListItem>
-            <ListItem fontSize="15px" color={colorSecondary[colorMode]}>
-              <Link color={colorSecondary[colorMode]} fontSize="xl" href='https://chakra-ui.com' isExternal>
+            <ListItem fontSize="16px" color={colorSecondary[colorMode]}>
+              <Link color={colorSecondary[colorMode]} fontSize="16px" href='https://chakra-ui.com' isExternal>
                 Chakra Design system <ExternalLinkIcon mx='5px' />
               </Link>
             </ListItem>
