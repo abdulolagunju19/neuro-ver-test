@@ -1,0 +1,710 @@
+---
+title: 'C++ Calculator Project'
+publishedAt: '2022-01-04'
+summary: 'I provide a tutorial on how to make a calculator.'
+---
+
+# Tutorials
+
+Today, we will take a look at one of my old projects. In this, I made a calculator where all the operations were defined by only being able to add one to any number. So, I had to recreate division, multiplication, and other operations following this rule. In this blog post, you will get a little taste of some functional programming.
+
+Unfortunately, my function and variable names aren’t the greatest, so sorry about that in advance. In addition, I was not allowed to use for loops.
+
+To set up your own C++ environment on your computer, take a look at this video: [Set Up Your C++ Environment](https://youtu.be/GWJqsmitR2I)
+
+### abdul_calculatorheader.h
+```cpp:abdul_calculatorheader.h
+#ifndef CALCULATORHEADER_CPP
+#define CALCULATORHEADER_CPP
+
+#endif // CALCULATORHEADER_CPP
+
+int s(int x);
+int add(int a, int b);
+int l(int a);
+int subtract(int m, int s);
+bool lessThan(int a, int b);
+bool lessThanOrEqualTo(int a, int b);
+int multiply(int a, int b);
+int intDiv(int a, int b);
+bool greaterThan(int a, int b);
+bool greaterThanOrEqualTo(int a, int b);
+int mod(int a, int b);
+```
+Firstly, we will take a look at the header file. In it, I declare the functions that I will use in my main program file. By doing this, I can place my functions in other files and include them all in my main calculator program file. This allows my code to be more organized. 
+
+This is a user defined header file, as I created it. In C++, unlike python, I must declare the data types that will be included in the parameters of my function, and the data type of the output of my function.
+
+For example, let us look at int s(int x).
+
+int stands for integer. s is the arbitrary name of a function (don’t give bad function names, it makes your code impossible to read later). x is the arbitrary name for the variable going in the function, often used in algebra. We call this the parameter of the function. 
+
+This function will take in an integer that I called x and output an integer. How do I know it will output an integer? The function, called s, is of the datatype int. This means that it will return an integer.
+
+What is #ifndef, #define, and #endif used for? They are called header guards and prevent header files from being included more than once in your program. 
+
+#ifndef checks if the header file has been defined in the file or in one of the files you have included.
+
+#define will define the header file if the #ifndef returns true, as it defines the header file if it has not already been defined. By defining the header file, everything in the header file will be included in your project.
+
+#endif will end this process.
+
+### abdulcalculatorsource.cpp
+
+This file contains what the functions do. We will look at each function one by one. 
+
+###### s: 
+For the function named s, our parameter is int x (stands for integer x). The purpose of this function is to return x+1.
+
+###### add:
+In this function, we add two numbers. Our parameters are a and b, two integers. To add them, I run while loop and add one to a by calling the s function on a. I also call the s function on counter in order to increase the value of the counter. I return a once the counter reaches the value of b.
+
+###### l:
+This function subtracts 1 from the parameter, a. I set the counter to a value of one (s(0) just means adding 1 to 0). I then created a variable of minus1 equal to 0. I then increase the value of the counter until it is the same as a, and since minus1 started at 0, it will end up being one value less than a.
+```cpp:abdul_calculatorsource.cpp
+//Calculator source file
+
+//add one
+int s(int x)
+{
+    return x+1;
+}
+//add two numbers
+int add(int a, int b)
+{
+    //have counter, counts till 0 = b, simultaneously adding to a
+    int counter = 0;
+    while(counter != b)
+    {
+        counter = s(counter);
+        a = s(a);
+    }
+    return a;
+}
+//subtract 1 from number
+int l(int a)
+{
+    //subtract 1 from num, counter starts at 1 instead of 0
+    int counter = s(0);
+    int minus1 = 0;
+    while(counter != a)
+    {
+        counter = s(counter);
+        minus1 = s(minus1);
+    }
+    return minus1;
+}
+```
+###### lessThan:
+In this function, we want to check if one number is less than another. In this case, our function type will be a bool (short for boolean). A boolean is a variable with two possible values, true or false. If a is less than b, I return true. If a is greater than b, I return false.
+In this function, I set a boolean variable called whichnum. It can have the value of true (whichnum has a value of 1) or false (whichnum has a value of 0). I also bring back my handy counter. I run a while loop, reducing the value of a and b by one. If a becomes 0 first, I set whichnum to true. If b becomes 0 first, I set whichnum to false. I also check if a and b are equal (they are 0 at the same time), setting whichnum to false in that condition. 
+
+###### lessThanOrEqualTo:
+This is almost identical to lessThan. Try to figure out the difference in the functions.
+```cpp:abdul_calculatorsource.cpp
+bool lessThan(int a, int b)
+{
+    //makes bool, subtracts 1 from each number and number to hit zero first is smallest
+    bool whichnum;
+    int counter = 0;
+    while(counter == 0)
+    {
+        if(a == 0)
+        {
+            if(b == 0)
+            {
+                whichnum = false;
+            }
+            break;
+        }
+        if(a == 0)
+        {
+            whichnum = true;
+            counter = s(0);
+            break;
+        }
+        else if(b == 0)
+        {
+            whichnum = false;
+            counter = s(0);
+            break;
+        }
+        a = l(a);
+        b = l(b);
+    }
+    return whichnum;
+}
+
+bool lessThanOrEqualTo(int a, int b)
+{
+    //same as less than except if a & b hit zero at same time then 2 numbers are equal
+    bool whichnum;
+    int counter = 0;
+    while(counter == 0)
+    {
+        if(a == 0)
+        {
+            if(b == 0)
+            {
+                whichnum = true;
+            }
+            break;
+        }
+        if(a == 0)
+        {
+            whichnum = true;
+            counter = s(0);
+            break;
+        }
+        else if(b == 0)
+        {
+            whichnum = false;
+            counter = s(0);
+            break;
+        }
+        a = l(a);
+        b = l(b);
+    }
+    return whichnum;
+}
+```
+###### multiply:
+In this function, once again the parameters are the two numbers that we will multiply together, a and b. I create three variables, counter1, counter, and sum. sum is equal to 0. counter1 is equal to 0. I add one to the sum a times. I then **repeat the previous addition of a to the variable called sum b times. **
+
+Let’s pretend that a = 3 and b = 4. I am adding 1 to the variable sum 3 times. sum is now 3. I then repeat that process 4 times. sum is now 3 + 3 + 3 + 3 = 12.
+
+Confusing to write out, but if you think about multiplication, it should make sense. Let’s use 3 times 4 again. 3 × 4 = 3 + 3 + 3 + 3. This is essentially what I am doing in this function. I am adding a to the variable sum b times.
+
+###### greaterThan:
+This follows the same rationale as the lessThan function. Try to reason out the changes.
+
+###### greaterThanOrEqualTo:
+This follows the same rationale as the lessThan function. Try to reason out the changes.
+```cpp:abdul_calculatorsource.cpp
+int multiply(int a, int b)
+{
+    //do repeated addition
+    int counter1 = 0, counter, sum = 0;
+    while(counter1 != b)
+    {
+        counter = 0;
+        counter1 = s(counter1);
+        while(counter != a)
+        {
+            counter = s(counter);
+            sum = s(sum);
+        }
+    }
+    return sum;
+}
+
+bool greaterThan(int a, int b)
+{
+    //number that hits zero last is the largest
+    bool whichnum;
+    int counter = 0;
+    while(counter == 0)
+    {
+        if(a == 0)
+        {
+            if(b == 0)
+            {
+                whichnum = false;
+            }
+            break;
+        }
+        if(a == 0)
+        {
+            whichnum = false;
+            counter = s(0);
+            break;
+        }
+        else if(b == 0)
+        {
+            whichnum = true;
+            counter = s(0);
+            break;
+        }
+        a = l(a);
+        b = l(b);
+    }
+    return whichnum;
+}
+
+bool greaterThanOrEqualTo(int a, int b)
+{
+    //same as greater than, if a & b hit zero at same time they are equal
+    bool whichnum;
+    int counter = 0;
+    while(counter == 0)
+    {
+        if(a == 0)
+        {
+            if(b == 0)
+            {
+                whichnum = true;
+            }
+            break;
+        }
+        if(a == 0)
+        {
+            whichnum = false;
+            counter = s(0);
+            break;
+        }
+        else if(b == 0)
+        {
+            whichnum = true;
+            counter = s(0);
+            break;
+        }
+        a = l(a);
+        b = l(b);
+    }
+    return whichnum;
+}
+```
+###### subtract:
+In this function, I return 0 if the two numbers are the same. Otherwise, I use the greaterThan function to check which number is bigger (to avoid getting a negative answer). I then increase the value of the variable minus (which starts out at 0) and b at the same time, until b is the same value as a. Thus, minus is now the difference between a and b. 
+If b is greater, I perform the same process but change the variable names.
+
+###### intDiv:
+Firstly, I make sure I am not performing division by zero. In the main file, you will see why I return -5 if we are performing division by 0 (the number -5 is an arbitrary choice). I then see the number of times b can fit in a by using my subtract function. I created a counter variable to count this.
+
+For example, let’s say a = 15 and b = 5. I increase the counter by one if a is greater than or equal to b (15 is greater than 5). I then subtract 5 from 15, so a = 10 and b still equals 5. 
+Now, I increase the counter by one if a is greater than or equal to b (10 is still greater than 5). I then subtract 5 from 10, so a = 5 and b still equals 5. Now, I increase the counter by one if a is greater than or equal to b (a = 5 and b =5 so they are equal). 
+
+Again, I subtract 5 from 5, so a = 0 and b still equals 5. The counter is equal to 3, and a is no longer greater than or equal to b.
+
+###### mod:
+We need to get the remainder, so instead of returning the counter, we return what is left over in a after we have performed our subtractions. We also no longer need to worry about division by 0, as we are getting the remainder.
+
+```cpp:abdul_calculatorsource.cpp
+int subtract(int a, int b)
+{
+    //while smaller number is not equal to larger, keep adding 1 until it is, minus is counter that records the difference
+    int minus = 0;
+    if(a == b)
+    {
+        return minus;
+    }
+    else
+    {
+        if(greaterThan(a, b) == true)
+        {
+            while(b != a)
+            {
+                b = s(b);
+                minus = s(minus);
+            }
+        }
+        else
+        {
+            while(b != a)
+            {
+                a = s(a);
+                minus = s(minus);
+            }
+        }
+    }
+    return minus;
+}
+int intDiv(int a, int b)
+{
+    //repeated subtraction until a is less than b
+    int counter = 0;
+    //you cannot divide a number by 0
+    if(b == 0)
+    {
+        return -5;
+    }
+    while(greaterThanOrEqualTo(a, b) == true)
+    {
+        counter = s(counter);
+        a = subtract(a, b);
+    }
+    return counter;
+}
+int mod(int a, int b)
+{
+    //same as intDiv, except you are recording a, the leftover number
+    int counter = 0;
+    while(greaterThanOrEqualTo(a, b) == true)
+    {
+        counter = s(counter);
+        a = subtract(a, b);
+    }
+    return a;
+}
+```
+### abdul_calculatorintmain.cpp
+
+To now call on all of our functions in an organized manner, I created a main file.
+In the first line, I used #include iostream (C++20 allows you to use the line import iostream).
+
+The #include iostream will tell a preprocessor to take the contents of the iostream header file and include it in the abdul_calculatorintmain.cpp file. iostream allows me to use input and outputs (cin and cout). 
+  
+using namespace std is not considered good practice [(using-namespace-std-considered-bad-practice)](https://www.geeksforgeeks.org/using-namespace-std-considered-bad-practice/), but I still used it for this program. Why? It allows me to avoid having to write std::cout or std::cin, so it makes it quicker to write out my code.
+I then ask the users to enter two numbers and perform some sort of operation. 
+
+I also state if division by 0 has occurred (that is why I return -5 in the intDiv function, I could have chosen any number or character).
+```cpp:abdul_calculatorintmain.cpp  
+//Abdul-Samad Olagunju
+//Calculator Project
+
+#include <iostream>
+#include "abdul_calculatorheader.h"
+using namespace std;
+
+int main()
+{
+    //initialize variables
+    int a, b;
+    char ans;
+
+    //ask user for numbers, for operation
+    cout << "Please enter two numbers(a,b): ";
+    cin >> a >> b;
+    cout << "What operation would you like to use on the numbers? (+,-,/,*)  ";
+    cin >> ans;
+
+    //output users request
+    if(ans == '+')
+    {
+        cout << "The sum of the two numbers is: " << add(a, b) << endl;
+    }
+    else if(ans == '-')
+    {
+        cout << "The difference of the two numbers is: " << subtract(a, b) << endl;
+    }
+
+    else if(ans == '*')
+    {
+        cout << "The product of the two numbers is: " << multiply(a, b) << endl;
+    }
+    else if(ans == '/')
+    {
+        if(intDiv(a, b) == -5)
+        {
+            cout << "The quotient of the two numbers is undefined." << endl;
+        }
+        else
+        {
+            cout << "The quotient of the two numbers is: " << intDiv(a, b);
+            cout << " remainder " << mod(a, b) << endl;
+        }
+    }
+    return 0;
+}
+```
+I hope you enjoyed this tutorial and can now make use of some C++ to design some of your own projects.
+
+All of the code:
+
+### abdul_calculatorheader.h
+```cpp:abdul_calculatorheader.h
+#ifndef CALCULATORHEADER_CPP
+#define CALCULATORHEADER_CPP
+
+#endif // CALCULATORHEADER_CPP
+
+int s(int x);
+int add(int a, int b);
+int l(int a);
+int subtract(int m, int s);
+bool lessThan(int a, int b);
+bool lessThanOrEqualTo(int a, int b);
+int multiply(int a, int b);
+int intDiv(int a, int b);
+bool greaterThan(int a, int b);
+bool greaterThanOrEqualTo(int a, int b);
+int mod(int a, int b);
+```
+### abdulcalculatorsource.cpp
+```cpp:abdul_calculatorsource.cpp
+//Calculator source file
+
+//add one
+int s(int x)
+{
+    return x+1;
+}
+//add two numbers
+int add(int a, int b)
+{
+    //have counter, counts till 0 = b, simultaneously adding to a
+    int counter = 0;
+    while(counter != b)
+    {
+        counter = s(counter);
+        a = s(a);
+    }
+    return a;
+}
+//subtract 1 from number
+int l(int a)
+{
+    //subtract 1 from num, counter starts at 1 instead of 0
+    int counter = s(0);
+    int minus1 = 0;
+    while(counter != a)
+    {
+        counter = s(counter);
+        minus1 = s(minus1);
+    }
+    return minus1;
+}
+bool lessThan(int a, int b)
+{
+    //makes bool, subtracts 1 from each number and number to hit zero first is smallest
+    bool whichnum;
+    int counter = 0;
+    while(counter == 0)
+    {
+        if(a == 0)
+        {
+            if(b == 0)
+            {
+                whichnum = false;
+            }
+            break;
+        }
+        if(a == 0)
+        {
+            whichnum = true;
+            counter = s(0);
+            break;
+        }
+        else if(b == 0)
+        {
+            whichnum = false;
+            counter = s(0);
+            break;
+        }
+        a = l(a);
+        b = l(b);
+    }
+    return whichnum;
+}
+
+bool lessThanOrEqualTo(int a, int b)
+{
+    //same as less than except if a & b hit zero at same time then 2 numbers are equal
+    bool whichnum;
+    int counter = 0;
+    while(counter == 0)
+    {
+        if(a == 0)
+        {
+            if(b == 0)
+            {
+                whichnum = true;
+            }
+            break;
+        }
+        if(a == 0)
+        {
+            whichnum = true;
+            counter = s(0);
+            break;
+        }
+        else if(b == 0)
+        {
+            whichnum = false;
+            counter = s(0);
+            break;
+        }
+        a = l(a);
+        b = l(b);
+    }
+    return whichnum;
+}
+int multiply(int a, int b)
+{
+    //do repeated addition
+    int counter1 = 0, counter, sum = 0;
+    while(counter1 != b)
+    {
+        counter = 0;
+        counter1 = s(counter1);
+        while(counter != a)
+        {
+            counter = s(counter);
+            sum = s(sum);
+        }
+    }
+    return sum;
+}
+
+bool greaterThan(int a, int b)
+{
+    //number that hits zero last is the largest
+    bool whichnum;
+    int counter = 0;
+    while(counter == 0)
+    {
+        if(a == 0)
+        {
+            if(b == 0)
+            {
+                whichnum = false;
+            }
+            break;
+        }
+        if(a == 0)
+        {
+            whichnum = false;
+            counter = s(0);
+            break;
+        }
+        else if(b == 0)
+        {
+            whichnum = true;
+            counter = s(0);
+            break;
+        }
+        a = l(a);
+        b = l(b);
+    }
+    return whichnum;
+}
+
+bool greaterThanOrEqualTo(int a, int b)
+{
+    //same as greater than, if a & b hit zero at same time they are equal
+    bool whichnum;
+    int counter = 0;
+    while(counter == 0)
+    {
+        if(a == 0)
+        {
+            if(b == 0)
+            {
+                whichnum = true;
+            }
+            break;
+        }
+        if(a == 0)
+        {
+            whichnum = false;
+            counter = s(0);
+            break;
+        }
+        else if(b == 0)
+        {
+            whichnum = true;
+            counter = s(0);
+            break;
+        }
+        a = l(a);
+        b = l(b);
+    }
+    return whichnum;
+}
+int subtract(int a, int b)
+{
+    //while smaller number is not equal to larger, keep adding 1 until it is, minus is counter that records the difference
+    int minus = 0;
+    if(a == b)
+    {
+        return minus;
+    }
+    else
+    {
+        if(greaterThan(a, b) == true)
+        {
+            while(b != a)
+            {
+                b = s(b);
+                minus = s(minus);
+            }
+        }
+        else
+        {
+            while(b != a)
+            {
+                a = s(a);
+                minus = s(minus);
+            }
+        }
+    }
+    return minus;
+}
+int intDiv(int a, int b)
+{
+    //repeated subtraction until a is less than b
+    int counter = 0;
+    //you cannot divide a number by 0
+    if(b == 0)
+    {
+        return -5;
+    }
+    while(greaterThanOrEqualTo(a, b) == true)
+    {
+        counter = s(counter);
+        a = subtract(a, b);
+    }
+    return counter;
+}
+int mod(int a, int b)
+{
+    //same as intDiv, except you are recording a, the leftover number
+    int counter = 0;
+    while(greaterThanOrEqualTo(a, b) == true)
+    {
+        counter = s(counter);
+        a = subtract(a, b);
+    }
+    return a;
+}
+```
+### abdul_calculatorintmain.cpp
+```cpp:abdul_calculatorintmain.cpp  
+//Abdul-Samad Olagunju
+//Calculator Project
+
+#include <iostream>
+#include "abdul_calculatorheader.h"
+using namespace std;
+
+int main()
+{
+    //initialize variables
+    int a, b;
+    char ans;
+
+    //ask user for numbers, for operation
+    cout << "Please enter two numbers(a,b): ";
+    cin >> a >> b;
+    cout << "What operation would you like to use on the numbers? (+,-,/,*)  ";
+    cin >> ans;
+
+    //output users request
+    if(ans == '+')
+    {
+        cout << "The sum of the two numbers is: " << add(a, b) << endl;
+    }
+    else if(ans == '-')
+    {
+        cout << "The difference of the two numbers is: " << subtract(a, b) << endl;
+    }
+
+    else if(ans == '*')
+    {
+        cout << "The product of the two numbers is: " << multiply(a, b) << endl;
+    }
+    else if(ans == '/')
+    {
+        if(intDiv(a, b) == -5)
+        {
+            cout << "The quotient of the two numbers is undefined." << endl;
+        }
+        else
+        {
+            cout << "The quotient of the two numbers is: " << intDiv(a, b);
+            cout << " remainder " << mod(a, b) << endl;
+        }
+    }
+    return 0;
+}
+```
