@@ -86,7 +86,7 @@ export default function ContactMe() {
             <br />
             {isDesktopOrLaptop &&
               <VStack>
-                <Text color={colorSecondary[colorMode]} fontSize="2xl" fontWeight="semibold"> You can also reach me at this email address: olagunju@ualberta.ca </Text>
+                <Text color={colorSecondary[colorMode]} fontSize="2xl" fontWeight="semibold"> Email Address: olagunju@ualberta.ca </Text>
                 <Text color={colorSecondary[colorMode]} fontSize="2xl" fontWeight="semibold">As a send off, click the picture below to see a cool effect!</Text>
                 <Text color={colorSecondary[colorMode]} fontSize="2xl" fontWeight="semibold">&darr;</Text>
                 <Box borderRadius="lg" overflow="hidden" p={5} w ="100%" h ="650">
