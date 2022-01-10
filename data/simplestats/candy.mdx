@@ -11,202 +11,219 @@ C++ will always be my first love. I started learning programming with this langu
 ## Quote of the Post
 > "The hidden harmony is better than the obvious." - Heraclitus
 
-### All of the Code:
+### candymachine.cpp
+
+This is a candy dispenser program in C++. The candy machine will sell a user candy, chips, gum, or cookies. This blog post will be a little less specific so you can go through the code and try to understand it yourself.
+
+We have a CashRegister and DispenserType Class. The CashRegister will hold the cash, and the DispenserType will hold the snacks. 
+
+The program will show the user the different snack being sold, let them choose how many they want, and also compare the number of snacks selected by the user with how many snacks are in stock.
+
+The user can then input some money so they can buy their snacks.
+
+In the CashRegister class, we have declared a constructor that that will set the amount of money in the register to 500. The other functions getCurrentBalance() and acceptAmount will be returning the amount of money in the register and also changing the amount of money in the register according to how much money the customer gives.
+
+The DispenserType Class will also have a constructor declared that will set the cost of the item to 50. The functions getNoOfItems(), getCost(), and makeSale() will be involved with returning the number of items, the cost, and updating the number of items in the dispenser.
+In the int main() we call on the functions that will show the snacks and then perform the sale.
+Let’s take a look at sellProduct().
+
+In this function, we ask the user for the number of products they want, create the objects from our classes, and call on the functions from our classes to perform our sale.
 ```cpp:candymachine.cpp
+//Abdul-Samad Olagunju
+
 #include <iostream>
 using namespace std;
 
 //declaration of classes
 class CashRegister 
 {
-	private:
-		float cashOnHand;
-	public:
-		//cashregister declared, also accepting amount to register
-		CashRegister()
-		{
-			cashOnHand = 500;
-			return;
-		}
-		float getCurrentBalance()
-		{
-			return cashOnHand;
-		}
-		void acceptAmount(float customercash)
-		{
-			 cashOnHand += customercash;           
-		}
+    private:
+        float cashOnHand;
+    public:
+        //cashregister declared, also accepting amount to register
+        CashRegister()
+        {
+            cashOnHand = 500;
+            return;
+        }
+        float getCurrentBalance()
+        {
+            return cashOnHand;
+        }
+        void acceptAmount(float customercash)
+        {
+             cashOnHand += customercash;           
+        }
 };
 //declare dispenser class
 class DispenserType
 {
-	private:
-		
-		int numberOfItems;
-		float cost; 
-	public:	
-		//declare constructor, get # of items and cost
-		DispenserType()
-		{
-			cost = 50;
-		}
-		int getNoOfItems(int snackchoice, int candiesnumberOfItems, int chipsnumberOfItems, int gumnumberOfItems, int cookiesnumberOfItems)
-		{
-			if (snackchoice == 1)
-			{
-				do
-				{
-					cout << "How many items would you like to purchase? ";
-					cin >> numberOfItems;
-					if(numberOfItems > candiesnumberOfItems)
-					{
-						cout << "Only " << candiesnumberOfItems << " items are available in stock." << endl;
-					}
-				}while(numberOfItems > candiesnumberOfItems);
-				cost *= numberOfItems;
-				return candiesnumberOfItems;
-			}
-			else if (snackchoice == 2)
-			{
-				do
-				{
-					cout << "How many items would you like to purchase? ";
-					cin >> numberOfItems;
-					if(numberOfItems > chipsnumberOfItems)
-					{
-						cout << "Only " << chipsnumberOfItems << " items are available in stock." << endl;
-					}
-				}while(numberOfItems > chipsnumberOfItems);
-				cost *= numberOfItems;
-				return chipsnumberOfItems;
-			}
-			else if (snackchoice == 3)
-			{
-				do
-				{
-					cout << "How many items would you like to purchase? ";
-					cin >> numberOfItems;
-					if(numberOfItems > gumnumberOfItems)
-					{
-						cout << "Only " << gumnumberOfItems << " items are available in stock." << endl;
-					}
-				}while(numberOfItems > gumnumberOfItems);
-				cost *= numberOfItems;
-				return gumnumberOfItems;
-			}
-			else if (snackchoice == 4)
-			{
-				do
-				{
-					cout << "How many items would you like to purchase? ";
-					cin >> numberOfItems;
-					if(numberOfItems > cookiesnumberOfItems)
-					{
-						cout << "Only " << cookiesnumberOfItems << " items are available in stock." << endl;
-					}
-				}while(numberOfItems > cookiesnumberOfItems);
-				cost *= numberOfItems;
-				return cookiesnumberOfItems;
-			}
-		}
-		float getCost()
-		{
-			return cost;
-		}
-		int makeSale(int snackchoice)
-		{
-			return numberOfItems;
-		}
+    private:
+        
+        int numberOfItems;
+        float cost; 
+    public: 
+        //declare constructor, get # of items and cost
+        DispenserType()
+        {
+            cost = 50;
+        }
+        int getNoOfItems(int snackchoice, int candiesnumberOfItems, int chipsnumberOfItems, int gumnumberOfItems, int cookiesnumberOfItems)
+        {
+            if (snackchoice == 1)
+            {
+                do
+                {
+                    cout << "How many items would you like to purchase? ";
+                    cin >> numberOfItems;
+                    if(numberOfItems > candiesnumberOfItems)
+                    {
+                        cout << "Only " << candiesnumberOfItems << " items are available in stock." << endl;
+                    }
+                }while(numberOfItems > candiesnumberOfItems);
+                cost *= numberOfItems;
+                return candiesnumberOfItems;
+            }
+            else if (snackchoice == 2)
+            {
+                do
+                {
+                    cout << "How many items would you like to purchase? ";
+                    cin >> numberOfItems;
+                    if(numberOfItems > chipsnumberOfItems)
+                    {
+                        cout << "Only " << chipsnumberOfItems << " items are available in stock." << endl;
+                    }
+                }while(numberOfItems > chipsnumberOfItems);
+                cost *= numberOfItems;
+                return chipsnumberOfItems;
+            }
+            else if (snackchoice == 3)
+            {
+                do
+                {
+                    cout << "How many items would you like to purchase? ";
+                    cin >> numberOfItems;
+                    if(numberOfItems > gumnumberOfItems)
+                    {
+                        cout << "Only " << gumnumberOfItems << " items are available in stock." << endl;
+                    }
+                }while(numberOfItems > gumnumberOfItems);
+                cost *= numberOfItems;
+                return gumnumberOfItems;
+            }
+            else if (snackchoice == 4)
+            {
+                do
+                {
+                    cout << "How many items would you like to purchase? ";
+                    cin >> numberOfItems;
+                    if(numberOfItems > cookiesnumberOfItems)
+                    {
+                        cout << "Only " << cookiesnumberOfItems << " items are available in stock." << endl;
+                    }
+                }while(numberOfItems > cookiesnumberOfItems);
+                cost *= numberOfItems;
+                return cookiesnumberOfItems;
+            }
+        }
+        float getCost()
+        {
+            return cost;
+        }
+        int makeSale(int snackchoice)
+        {
+            return numberOfItems;
+        }
 };
 //functions declared
 void showSelection();
 void sellProduct();
 int main() 
 {
-	//call functions
-	showSelection();
-	sellProduct();	
-	return 0;
+    //call functions
+    showSelection();
+    sellProduct();  
+    return 0;
 }
 void showSelection()
 {
-	//show selections available
-	cout << "Welcome to Abdul-Samad's Candy Machine!" << endl;
-	cout << "You may purchase candies, chips, gum, and cookies for low prices!" << endl;
-	cout << "To purchase a product, enter the number associated with it." << endl;	
+    //show selections available
+    cout << "Welcome to Abdul-Samad's Candy Machine!" << endl;
+    cout << "You may purchase candies, chips, gum, and cookies for low prices!" << endl;
+    cout << "To purchase a product, enter the number associated with it." << endl;  
 }
 void sellProduct()
-{	
-	//variables		
-	char userchoice;
-	int candiesnumberOfItems = 50;
-	int chipsnumberOfItems = 50; 
-	int gumnumberOfItems = 50;
-	int cookiesnumberOfItems = 50;
-	//do while for user choice	
-	do
-	{
-		//declare constructors and variables required
-		DispenserType dispenser;
-		CashRegister cash;
-		float customercash;
-		float customercashtotal = 0;
-		int snackchoice;
-		//data sanitation for user choice
-		do
-		{
-			cout << "Candies (1), Chips (2), Gum (3), Cookies (4): ";
-			cin >> snackchoice;
-		}while(snackchoice < 0 || snackchoice > 4);
-		//show user total cost and get number of items they want
-		cout << "The price of each individual item is 50 cents." << endl;
-		cout << dispenser.getNoOfItems(snackchoice, candiesnumberOfItems, chipsnumberOfItems, gumnumberOfItems, cookiesnumberOfItems) << endl;
-		cout << "The total cost is: " << dispenser.getCost() << " cents." << endl;
-		do
-		{
-			//get customer cash, see if they have paid right amount, change register
-			cout << "Please enter the amount of money you would like to deposit: " << endl;
-			cin >> customercash;
-			customercashtotal += customercash;					
-			if(customercashtotal > dispenser.getCost())
-			{
-				cout << "Here is your change: " << customercashtotal - dispenser.getCost() << endl;
-			}
-			else if((customercash < dispenser.getCost()) && (dispenser.getCost() - customercashtotal != 0))
-			{
-				cout << "Here is the amount you still need to pay: " << dispenser.getCost() - customercashtotal << endl;	
-			}
-		}while(customercashtotal < dispenser.getCost());
-		customercashtotal -= customercashtotal -  dispenser.getCost();
-		cash.acceptAmount(customercashtotal);
-		//give customer products
-		switch(snackchoice)
-		{
-			case 1 :
-				cout << "Here are your " << dispenser.makeSale(snackchoice) << " candie(s)." << endl;
-				candiesnumberOfItems -= dispenser.makeSale(snackchoice);
-				break;
-			case 2 :
-				cout << "Here are your " << dispenser.makeSale(snackchoice) << " chip(s)." << endl;
-				chipsnumberOfItems -= dispenser.makeSale(snackchoice);
-				break;
-			case 3 :
-				cout << "Here are your " << dispenser.makeSale(snackchoice) << " piece(s) of gum." << endl;
-				gumnumberOfItems -= dispenser.makeSale(snackchoice);
-				break;
-			case 4 :
-				cout << "Here are your " << dispenser.makeSale(snackchoice) << " cookie(s)." << endl;
-				cookiesnumberOfItems -= dispenser.makeSale(snackchoice);
-				break;	  
-		}
-		customercashtotal = 0;	
-		//ask them if they would like to continue shopping			
-		cout << "Would you like to continue shopping? (y/n)";
-		cin >> userchoice;
-	}while(userchoice == 'y');
-	//give them positive incentive to come back
-	cout << " Thank you for shopping here! Come back soon!" << endl;
+{   
+    //variables     
+    char userchoice;
+    int candiesnumberOfItems = 50;
+    int chipsnumberOfItems = 50; 
+    int gumnumberOfItems = 50;
+    int cookiesnumberOfItems = 50;
+    //do while for user choice  
+    do
+    {
+        //declare constructors and variables required
+        DispenserType dispenser;
+        CashRegister cash;
+        float customercash;
+        float customercashtotal = 0;
+        int snackchoice;
+        //data sanitation for user choice
+        do
+        {
+            cout << "Candies (1), Chips (2), Gum (3), Cookies (4): ";
+            cin >> snackchoice;
+        }while(snackchoice < 0 || snackchoice > 4);
+        //show user total cost and get number of items they want
+        cout << "The price of each individual item is 50 cents." << endl;
+        cout << dispenser.getNoOfItems(snackchoice, candiesnumberOfItems, chipsnumberOfItems, gumnumberOfItems, cookiesnumberOfItems) << endl;
+        cout << "The total cost is: " << dispenser.getCost() << " cents." << endl;
+        do
+        {
+            //get customer cash, see if they have paid right amount, change register
+            cout << "Please enter the amount of money you would like to deposit: " << endl;
+            cin >> customercash;
+            customercashtotal += customercash;                  
+            if(customercashtotal > dispenser.getCost())
+            {
+                cout << "Here is your change: " << customercashtotal - dispenser.getCost() << endl;
+            }
+            else if((customercash < dispenser.getCost()) && (dispenser.getCost() - customercashtotal != 0))
+            {
+                cout << "Here is the amount you still need to pay: " << dispenser.getCost() - customercashtotal << endl;    
+            }
+        }while(customercashtotal < dispenser.getCost());
+        customercashtotal -= customercashtotal -  dispenser.getCost();
+        cash.acceptAmount(customercashtotal);
+        //give customer products
+        switch(snackchoice)
+        {
+            case 1 :
+                cout << "Here are your " << dispenser.makeSale(snackchoice) << " candie(s)." << endl;
+                candiesnumberOfItems -= dispenser.makeSale(snackchoice);
+                break;
+            case 2 :
+                cout << "Here are your " << dispenser.makeSale(snackchoice) << " chip(s)." << endl;
+                chipsnumberOfItems -= dispenser.makeSale(snackchoice);
+                break;
+            case 3 :
+                cout << "Here are your " << dispenser.makeSale(snackchoice) << " piece(s) of gum." << endl;
+                gumnumberOfItems -= dispenser.makeSale(snackchoice);
+                break;
+            case 4 :
+                cout << "Here are your " << dispenser.makeSale(snackchoice) << " cookie(s)." << endl;
+                cookiesnumberOfItems -= dispenser.makeSale(snackchoice);
+                break;    
+        }
+        customercashtotal = 0;  
+        //ask them if they would like to continue shopping          
+        cout << "Would you like to continue shopping? (y/n)";
+        cin >> userchoice;
+    }while(userchoice == 'y');
+    //give them positive incentive to come back
+    cout << " Thank you for shopping here! Come back soon!" << endl;
 }
-	
-
 ```
+Thanks for reading!
