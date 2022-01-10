@@ -1,0 +1,125 @@
+---
+title: 'Download a webpage into a PDF using python.'
+publishedAt: '2021-08-16'
+summary: 'I provide a detailed tutorial on downloading HTML files using python.'
+---
+
+# Tutorials
+
+We're going to write a short program that allows you to input a URL, and download the webpage as a PDF. I'm currently learning more about python, and will scale this up soon so that you can use this tool to automate your work.
+
+```python:download.py
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+import json
+import requests
+```
+So, to complete this task we will be using different libraries. These libraries are selenium, webdrive_manager.chrome, json, and requests. Yo will have to install selenium and webdriver_manager. I used the Anaconda prompt and pip install. You can use your command prompt or terminal.
+
+With webdriver from selenium, you can interact with a webpage and check how a webpage responds to changes. With ChromeDriverManager from webdriver_manager.chrome, we are telling python we would like to use Google Chrome to download the webpage. With import json, we can access JSON data in order to generate a PDF. With import requests, we can access the webpage we want to download from the URL. 
+```python:download.py
+def get_driver():
+    chrome_options = webdriver.ChromeOptions()
+    settings = {
+        "recentDestinations": [
+            {"id": "Save as PDF", "origin": "local", "account": ""}
+        ],
+        "selectedDestinationId": "Save as PDF",
+        "version": 2,
+    }
+    prefs = {
+        "printing.print_preview_sticky_settings.appState": json.dumps(settings)    
+    }
+    chrome_options.add_experimental_option("prefs", prefs)
+    chrome_options.add_argument("--kiosk-printing")
+    
+    browser = webdriver.Chrome(
+        executable_path=ChromeDriverManager().install(), options=chrome_options
+    )
+    return browser
+```
+Here is the first function we will use. We need to create a variable called chrome_options in order to pass it into our function webdriver.Chrome(). chrome_options will also save the PDF to recentDestinations, which is going to be your downloads folder. 
+
+chrome_options will receive settings and prefs, telling chrome to Save the Webpage as a PDF, and to dump the JSON data into a Python object before it can be moved into the PDF. Why JSON? Usually, the data exchanged between a server (computer that stores the webpage) and your computer is a JSON file. 
+
+We return browser, which is going to be able open the chrome browser and execute print. 
+```python:download.py
+def download_article(URL):
+    browser = get_driver()
+    browser.get(URL)
+    
+    browser.execute_script("window.print();")
+    browser.close()
+```
+To download the article, we pass the URL into the browser and tell the browser to open the URL. We then tell chrome to execute the program, window.print. This will print the Webpage as a PDF.
+```python:download.py
+if __name__ == "__main__":
+    URL = input("Please provide the URL of the WebPage:")
+    
+    if (requests.get(URL).status_code == 200):
+        try:
+            download_article(URL)
+            print("Your article has been succesfully downloaded as a PDF.")
+        except Exception as e:
+            print(e)
+    
+    else:
+        print("Enter a valid working URL.")
+```
+Over here, we define our main function, making sure that the main function is run when we are running the file named download.py. 
+
+Then we are getting the user to input the URL of the page they want to save as a PDF. 
+
+We use requests to make sure we can access the URL (if the status code of a webpage is 200, that means a connection has been established with the webpage) and make sure there is no error when we download the article by using a try and except to catch any errors. If we cannot access the URL, we tell the user to enter a valid working URL.
+
+Enjoy!
+
+![Westbrook](/images/dancing.gif)
+
+Here is all of the code.
+```python:download.py
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+import json
+import requests
+
+def get_driver():
+    chrome_options = webdriver.ChromeOptions()
+    settings = {
+        "recentDestinations": [
+            {"id": "Save as PDF", "origin": "local", "account": ""}
+        ],
+        "selectedDestinationId": "Save as PDF",
+        "version": 2,
+    }
+    prefs = {
+        "printing.print_preview_sticky_settings.appState": json.dumps(settings)    
+    }
+    chrome_options.add_experimental_option("prefs", prefs)
+    chrome_options.add_argument("--kiosk-printing")
+    
+    browser = webdriver.Chrome(
+        executable_path=ChromeDriverManager().install(), options=chrome_options
+    )
+    return browser
+    
+def download_article(URL):
+    browser = get_driver()
+    browser.get(URL)
+    
+    browser.execute_script("window.print();")
+    browser.close()
+    
+if __name__ == "__main__":
+    URL = input("Please provide the URL of the WebPage:")
+    
+    if (requests.get(URL).status_code == 200):
+        try:
+            download_article(URL)
+            print("Your article has been succesfully downloaded as a PDF.")
+        except Exception as e:
+            print(e)
+    
+    else:
+        print("Enter a valid working URL.")
+```
