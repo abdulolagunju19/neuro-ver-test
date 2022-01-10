@@ -281,28 +281,28 @@ export default function Index() {
           </Heading>
           <OrderedList spacing={3}>
             <ListItem fontSize="16px" color={colorSecondary[colorMode]}>
-              <Link color={colorSecondary[colorMode]} fontSize="16px" href='https://chakra-ui.com' isExternal>
-                Chakra Design system <ExternalLinkIcon mx='5px' />
+              <Link color={colorSecondary[colorMode]} fontSize="16px" href='https://abneuro.vercel.app/simplestats/cafe' isExternal>
+                Cafe C++ Project <ExternalLinkIcon mx='5px' />
               </Link>
             </ListItem>
             <ListItem fontSize="16px" color={colorSecondary[colorMode]}>
-              <Link color={colorSecondary[colorMode]} fontSize="16px" href='https://chakra-ui.com' isExternal>
-                Chakra Design system <ExternalLinkIcon mx='5px' />
+              <Link color={colorSecondary[colorMode]} fontSize="16px" href='https://abneuro.vercel.app/blog/cerebellum' isExternal>
+                Cerebellum <ExternalLinkIcon mx='5px' />
               </Link>
             </ListItem>
             <ListItem fontSize="16px" color={colorSecondary[colorMode]}>
-              <Link color={colorSecondary[colorMode]} fontSize="16px" href='https://chakra-ui.com' isExternal>
-                Chakra Design system <ExternalLinkIcon mx='5px' />
+              <Link color={colorSecondary[colorMode]} fontSize="16px" href='https://abneuro.vercel.app/blog/eating' isExternal>
+                Eating Disorders <ExternalLinkIcon mx='5px' />
               </Link>
             </ListItem>
             <ListItem fontSize="16px" color={colorSecondary[colorMode]}>
-              <Link color={colorSecondary[colorMode]} fontSize="16px" href='https://chakra-ui.com' isExternal>
-                Chakra Design system <ExternalLinkIcon mx='5px' />
+              <Link color={colorSecondary[colorMode]} fontSize="16px" href='https://abneuro.vercel.app/blog/Thutmose' isExternal>
+                Thutmose III <ExternalLinkIcon mx='5px' />
               </Link>
             </ListItem>
             <ListItem fontSize="16px" color={colorSecondary[colorMode]}>
-              <Link color={colorSecondary[colorMode]} fontSize="16px" href='https://chakra-ui.com' isExternal>
-                Chakra Design system <ExternalLinkIcon mx='5px' />
+              <Link color={colorSecondary[colorMode]} fontSize="16px" href='https://abneuro.vercel.app/simplestats/KaggleData' isExternal>
+                Python- An analysis of a dataset from Kaggle <ExternalLinkIcon mx='5px' />
               </Link>
             </ListItem>
           </OrderedList>
