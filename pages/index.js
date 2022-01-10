@@ -10,9 +10,11 @@ import {
   Stack,
   ListItem,
   OrderedList,
-  Link
+  Link,
+  IconButton
 } from '@chakra-ui/react'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { FiGithub, FiTwitter, FiLinkedin } from "react-icons/fi"
 
 import TechStack from '../components/TechStack'
 import Container from '../components/Container'
@@ -305,6 +307,47 @@ export default function Index() {
           </OrderedList>
           </Flex>
         </Stack>
+        {isTabletOrMobile &&
+          <div>
+            <Flex align="center" mb={4} direction="column" visibility={'hidden', 'visible', 'visible'}>
+            <Stack spacing={4} direction="row" align="center">
+                <Link href="https://twitter.com/SamadOlagunju" title="Twitter" isExternal>
+                <IconButton
+                    aria-label="Twitter"
+                    icon={<FiTwitter />}
+                    size="lg"
+                    variant="ghost"
+                    transition='all 0.25s'
+                    transitionTimingFunction='spring(1 100 10 10)'
+                    _hover={{ transform: `translateY(-4px)`, shadow: `xl` }}
+                />
+                </Link>
+                <Link href="https://github.com/abdulolagunju19" title="GitHub" isExternal>
+                <IconButton
+                    aria-label="GitHub"
+                    icon={<FiGithub />}
+                    size="lg"
+                    variant="ghost"
+                    transition='all 0.25s'
+                    transitionTimingFunction='spring(1 100 10 10)'
+                    _hover={{ transform: `translateY(-4px)`, shadow: `xl` }}
+                />
+                </Link>
+                <Link href="https://www.linkedin.com/in/abdul-samad-olagunju-727877167/" title="Linkedin" isExternal>
+                <IconButton
+                    aria-label="Linkedin"
+                    icon={<FiLinkedin />}
+                    size="lg"
+                    variant="ghost"
+                    transition='all 0.25s'
+                    transitionTimingFunction='spring(1 100 10 10)'
+                    _hover={{ transform: `translateY(-4px)`, shadow: `xl` }}
+                />
+                </Link>
+            </Stack>
+            </Flex>
+          </div>
+        }
         </div>
       </Container>
     </>
