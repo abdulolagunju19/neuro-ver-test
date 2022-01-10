@@ -12,7 +12,7 @@ summary: 'I provide a C++ tutorial on café project.'
 
 Today, we will go over some code for a café project I did earlier. This project incorporates Object-Oriented Programming, and you will learn about the file structure of C++ projects. You will also learn about how to use header and main files in this blog post. I will try to get you to understand the decisions I made in this project. 
 
-**One thing to keep in mind is that the syntax for the functions and classes are not in camelCase, and you should avoid this mistake in your own code.**
+**One thing to keep in mind is that the syntax for the functions and classes are not in camelCase, and you should avoid this mistake in your own code.** Here is a link to an article with the entire project in camelCase: [camelCase Café Project]()
 
 There are several files in this project that are important, and I will go over all of them. 
 
@@ -21,8 +21,6 @@ To set up your own C++ environment on your computer, take a look at this video: 
 Let's dive into the code:
 
 ### Mainscreen.h
-
-Our first file is the Mainscreen.h file.
 
 In this header file I include all of the modules I would like to use. This is where I declare my mainscreen class (should be MainScreen according to camelCase conventions), which is the base class for this project. 
 
@@ -75,7 +73,7 @@ class mainscreen
 
 Here is the Mainscreen.cpp file. 
 
-#### Take a look at all of Mainscreen.cpp:
+##### Take a look at all of Mainscreen.cpp:
 ```cpp:Mainscreen.cpp
 //include all libraries to be used
 #include <iostream>
@@ -276,4 +274,977 @@ As self-checkout and cashier-checkout perform a similar task, it makes sense to 
 We wrap the code in do while loops so that the program continues to run if the user wants it to, and so that the user chooses one of the available options.
 
 Making a front end for this using HTML and JavaScript would be fun, but C++ isn’t really as developed as other web development technologies in terms of the backend for small projects such as this one.
+
+### CashierCheckOut.h
+
+This is the header file for the CashierCheckOut file. We want to include string, iostream, and three user defined header files. This will allow us to use the mainscreen application for the Cashier Checkout, using object-oriented programming. We create a class called cashiercheckout that is the child of mainscreen. In other words, the derived class is cashiercheckout and the base class is mainscreen. cashiercheckout inherits the non-private members of mainscreen. 
+
+cashiercheckout also has its own functions declared and these are salesmenu() and dataentrymenu().
+```cpp:CashierCheckOut.h
+#ifndef CASHIERCHECKOUT_H
+#define CASHIERCHECKOUT_H
+#include <string>
+//include all libraries to be used
+#include <iostream>
+#include "SELFCHECKOUT.h"
+#include "MAINSCREEN.h"
+#include "STRUCTURE.h"
+
+using namespace std;
+//creat class cashier checkout, inherit public mainscreen
+class cashiercheckout : public mainscreen
+{   
+    public:
+        void salesmenu();
+        void dataentrymenu(customer person[50]); 
+};
+
+#endif
+```
+### CashierCheckOut.cpp
+
+##### First, take a look at all of the CashierCheckOut.cpp code:
+```cpp:CashierCheckOut.cpp
+//include all libraries to be used
+#include <iostream>
+#include "SELFCHECKOUT.h"
+#include "CASHIERCHECKOUT.h"
+#include "MAINSCREEN.h"
+#include "STRUCTURE.h"
+#include <string>
+
+using namespace std;
+
+void cashiercheckout :: salesmenu() 	
+{   //show menu
+    cout << "Abdul's Cafe and Bakery Breakfast Menu: " << endl;
+    cout << "1. YOGURT PARFAIT | $8.00 |" << endl;
+    cout << "2. BACON & EGG | $14.00 |" << endl;
+    cout << "3. EGGS BENEDICT � CANADIAN | $16.00 |" << endl;
+    cout << "4. EGGS BENEDICT � GARDEN | $15.00 |" << endl;
+    cout << "5. EGGS BENEDICT � GRAVLAX | $16.00 |" << endl;
+    cout << "6. CRAB & SPRING ONION OMELETTE | $17.00 |" << endl;
+    cout << "7. BUTTERMILK WAFFLES | $14.00 |" << endl;
+    cout << "8. HAZELNUT CHOCOLATE CR�PE | $15.00 |" << endl;
+    cout << "9. BACON BREAKFAST SANDWICH | $9.00 |" << endl;
+    cout << "10. VEGGIE BREAKFAST SANDWICH | $9.00 |" << endl;
+    //ask user for amount of products they would like to buy, and number of units
+    do{
+        cout << "Please choose the product the customer would like to purchase by entering the product number: ";
+        cin >> num;
+        cout << "How many units of the product would the customer like to purchase? ";
+        cin >> num2;
+        for(int i = 1; i <= 11; i++)
+        {
+            if(num == i)
+            {
+                for(int otheri = 0; otheri < num2; otheri++)
+                {
+                    cost += menu[i];
+                }
+            }
+        }
+        cout << "Would the customer like to purchase another product? (y/n)";
+        cin >> ans;
+    }while(ans == 'y');
+    do{
+        //find out type of membership
+        cout << "Select 'E' if the customer is an executive member, 'R' if the customer is a regular member, and 'N' if the customer is not a member: ";
+        cin >> typeofdiscount;
+    }while((typeofdiscount != 'E') && (typeofdiscount != 'R') && (typeofdiscount != 'N'));
+    if(typeofdiscount == 'E')
+    {
+        discount = 0.8;
+    }
+    else if(typeofdiscount == 'R')
+    {
+        discount = 0.9;
+    }
+    else if(typeofdiscount == 'N')
+    {
+        discount = 1;
+    }
+    discountcost = cost * discount;
+    //show cost
+    cout << "The total cost of the meal is $" << discountcost << "." << endl;
+    do
+    {
+        //get customer cash, see if they have paid right amount
+        cout << "Please enter the amount of money the customer would like to deposit: " << endl;
+        cin >> customercash;
+        customercashtotal += customercash;                  
+        if(customercashtotal > discountcost)
+        {
+            cout << "Here is the change: " << customercashtotal - discountcost << endl;
+        }
+        else if((customercash < discountcost) && (discountcost - customercashtotal != 0))
+        {
+            cout << "Here is the amount the customer still needs to pay: " << discountcost - customercashtotal << endl; 
+        }
+    }while(customercashtotal < discountcost);
+}
+
+void cashiercheckout :: dataentrymenu(customer person[50]) 
+{
+    /*//create 5 customers
+    numberofcustomers = 5;
+    customer person[50];
+    person[0].ID = 11;
+    person[0].username = "joe@gmail.com";
+    person[0].password = "bobby";
+    person[0].typeofdiscount = 'E';
+    person[1].ID = 12;
+    person[1].username = "kyle@gmail.com";
+    person[1].password = "drew";
+    person[1].typeofdiscount = 'E';
+    person[2].ID = 13;
+    person[2].username = "narr@gmail.com";
+    person[2].password = "dog";
+    person[2].typeofdiscount = 'R';
+    person[3].ID = 18;
+    person[3].username = "daad@gmail.com";
+    person[3].password = "doop";
+    person[3].typeofdiscount = 'R';
+    person[4].ID = 166;
+    person[4].username = "narrkk@gmail.com";
+    person[4].password = "dogmath";
+    person[4].typeofdiscount = 'R';*/
+    //ask what user wants, to add, update, or delete
+    do{
+        cout << "To enter a new customer into the system, please select 1. To search for an ID in the system, please select 2. To update a customer's information, please select 3. To display all the information in the database, please select 4. To delete a customer, please select 5: ";
+        cin >> IDans;
+    }while((IDans != 1) && (IDans != 2) && (IDans != 3) && (IDans != 4) && (IDans != 5));
+    if(IDans == 1)
+    {
+        cout << "Please enter the person's ID, username, password, and type of discount (E or R): ";
+        cin >> person[numberofcustomers].ID >> person[numberofcustomers].username >> person[numberofcustomers].password >> person[numberofcustomers].typeofdiscount;
+        numberofcustomers++;
+    }
+    if(IDans == 2)
+    {
+        cout << "Please enter the person's ID: ";
+        cin >> IDans;
+        for(int i = 0; i < numberofcustomers; i++)
+        {
+            if(IDans == person[i].ID)
+            {
+                cout << "ID: " << person[i].ID << endl << "Username: " << person[i].username << endl << "Password: " << person[i].password << endl << "Type of Discount: " << person[i].typeofdiscount << endl;
+            }       
+        }
+    }
+    if(IDans == 3)
+    {
+        cout << "Please enter the person's ID: ";
+        cin >> IDans;
+        cout << "Select 1 to edit the person's ID, 2 to edit the person's username, 3 to edit the person's password, or 4 to edit the person's type of discount (E or R): ";
+        cin >> choice;
+        if(choice == 1)
+        {
+            for(int i = 0; i < numberofcustomers; i++)
+            {
+                if(IDans == person[i].ID)
+                {
+                    cout << "Please enter the person's new ID: ";
+                    cin >> person[i].ID;
+                }       
+            }
+        }
+        else if(choice == 2)
+        {
+            for(int i = 0; i < numberofcustomers; i++)
+            {
+                if(IDans == person[i].ID)
+                {
+                    cout << "Please enter the person's new username: ";
+                    cin >> person[i].username;
+                }       
+            }
+        }
+        else if(choice == 3)
+        {
+            for(int i = 0; i < numberofcustomers; i++)
+            {
+                if(IDans == person[i].ID)
+                {
+                    cout << "Please enter the person's new password: ";
+                    cin >> person[i].password;
+                }       
+            }
+        }
+        else if(choice == 4)
+        {
+            for(int i = 0; i < numberofcustomers; i++)
+            {
+                if(IDans == person[i].ID)
+                {
+                    cout << "Please enter the person's new type of discount: ";
+                    cin >> person[i].typeofdiscount;
+                }       
+            }
+        }
+    }
+    if(IDans == 4)
+    {
+        //sort before displaying
+        for(int i = 0; i < numberofcustomers; i++)
+        {
+            for(int j = 0; j < numberofcustomers-1; j++)
+            {
+                if(person[j].ID > person[j+1].ID)
+                {
+                    int temp = person[j+1].ID;
+                    person[j+1].ID = person[j].ID;
+                    person[j].ID = temp;
+                }
+            }
+        }
+        for(int i = 0; i < numberofcustomers; i++)
+        {
+            cout << "ID: " << person[i].ID << endl << "Username: " << person[i].username << endl << "Type of Discount: " << person[i].typeofdiscount << endl;
+        }
+    }
+    if(IDans == 5)
+    {
+        cout << "Please enter the person's ID: ";
+        cin >> IDans;
+        for(int i = 0; i < numberofcustomers; i++)
+        {
+            if(IDans == person[i].ID)
+            {
+                position = i;
+            }
+        }
+        position2 = numberofcustomers;
+        position2--;
+        for(int i = position; i <= position2; i++)
+        {
+            person[i].ID = person[i+1].ID;
+            person[i].username = person[i+1].username;
+            person[i].password = person[i+1].password;
+            person[i].typeofdiscount = person[i+1].typeofdiscount;
+        }
+        for(int i = 0; i < position2; i++)
+        {
+            cout << "ID: " << person[i].ID << endl << "Username: " << person[i].username << endl << "Type of Discount: " << person[i].typeofdiscount << endl;
+        }
+    }
+    //sort customers
+    for(int i = 0; i < numberofcustomers; i++)
+    {
+        for(int j = 0; j < numberofcustomers-1; j++)
+        {
+            if(person[j].ID > person[j+1].ID)
+            {
+                int temp = person[j+1].ID;
+                person[j+1].ID = person[j].ID;
+                person[j].ID = temp;
+            }
+        }
+    }
+}
+```
+Now, let’s break up the code into sections so we can understand it. 
+
+Firstly, I include the libraries I want to use in this file. These include my user defined header files that I will explain later in the article. I also include iostream and string, two useful libraries in C++. iostream allows you to make use of functions such as cin and cout, which allow you to make us of input/output functionality. string allows you to manipulate groups of characters (words). 
+
+```cpp:CashierCheckOut.cpp
+//include all libraries to be used
+#include <iostream>
+#include "SELFCHECKOUT.h"
+#include "CASHIERCHECKOUT.h"
+#include "MAINSCREEN.h"
+#include "STRUCTURE.h"
+#include <string>
+
+using namespace std;
+```
+CashierCheckOut.cpp simulates the interface a cashier will use in a café shop. They can see the sales menu, input the information that the customer tells them to, determine the discounts available to the customer, and ask the customer if they would like to keep shopping.
+
+The cashier can edit, update, or delete the information of the customers in the database. 
+They cashier can also add new customers to the database.
+
+Our first function is salesmenu() (make sure when you create your own functions and classes that they are in camelCase, so salesmenu() should be salesMenu()). 
+#### Here is all of salesmenu():
+```cpp:CashierCheckOut.cpp
+
+void cashiercheckout :: salesmenu() 	
+{   //show menu
+    cout << "Abdul's Cafe and Bakery Breakfast Menu: " << endl;
+    cout << "1. YOGURT PARFAIT | $8.00 |" << endl;
+    cout << "2. BACON & EGG | $14.00 |" << endl;
+    cout << "3. EGGS BENEDICT � CANADIAN | $16.00 |" << endl;
+    cout << "4. EGGS BENEDICT � GARDEN | $15.00 |" << endl;
+    cout << "5. EGGS BENEDICT � GRAVLAX | $16.00 |" << endl;
+    cout << "6. CRAB & SPRING ONION OMELETTE | $17.00 |" << endl;
+    cout << "7. BUTTERMILK WAFFLES | $14.00 |" << endl;
+    cout << "8. HAZELNUT CHOCOLATE CR�PE | $15.00 |" << endl;
+    cout << "9. BACON BREAKFAST SANDWICH | $9.00 |" << endl;
+    cout << "10. VEGGIE BREAKFAST SANDWICH | $9.00 |" << endl;
+    //ask user for amount of products they would like to buy, and number of units
+    do{
+        cout << "Please choose the product the customer would like to purchase by entering the product number: ";
+        cin >> num;
+        cout << "How many units of the product would the customer like to purchase? ";
+        cin >> num2;
+        for(int i = 1; i <= 11; i++)
+        {
+            if(num == i)
+            {
+                for(int otheri = 0; otheri < num2; otheri++)
+                {
+                    cost += menu[i];
+                }
+            }
+        }
+        cout << "Would the customer like to purchase another product? (y/n)";
+        cin >> ans;
+    }while(ans == 'y');
+    do{
+        //find out type of membership
+        cout << "Select 'E' if the customer is an executive member, 'R' if the customer is a regular member, and 'N' if the customer is not a member: ";
+        cin >> typeofdiscount;
+    }while((typeofdiscount != 'E') && (typeofdiscount != 'R') && (typeofdiscount != 'N'));
+    if(typeofdiscount == 'E')
+    {
+        discount = 0.8;
+    }
+    else if(typeofdiscount == 'R')
+    {
+        discount = 0.9;
+    }
+    else if(typeofdiscount == 'N')
+    {
+        discount = 1;
+    }
+    discountcost = cost * discount;
+    //show cost
+    cout << "The total cost of the meal is $" << discountcost << "." << endl;
+    do
+    {
+        //get customer cash, see if they have paid right amount
+        cout << "Please enter the amount of money the customer would like to deposit: " << endl;
+        cin >> customercash;
+        customercashtotal += customercash;                  
+        if(customercashtotal > discountcost)
+        {
+            cout << "Here is the change: " << customercashtotal - discountcost << endl;
+        }
+        else if((customercash < discountcost) && (discountcost - customercashtotal != 0))
+        {
+            cout << "Here is the amount the customer still needs to pay: " << discountcost - customercashtotal << endl; 
+        }
+    }while(customercashtotal < discountcost);
+}
+```
+Why did I decide to make salesmenu() a function of the datatype void? What does that even mean?
+
+Well, a void function does not return any value. I just want the function salesmenu() to show the cashier the menu and allow them to compute the customer’s bill, so I do not require this function to return any value.
+
+I decided to use member functions, and I declared my classes in my header file. That is why my function definition for salesmenu() looks like this:
+
+    void cashiercheckout :: salesmenu()
+
+Usually, when you declare a function, you also define it inside of the declaration of a class. However, a member function will have its declaration inside of the class declaration, but it can be defined outside of a class. You just need to use the scope resolution operator (::). I did this to improve the readability of my code.
+
+Inside of salesmenu(), I write out my menu using cout statements. I then ask the user for the product they would like to buy. Using terrible variable names, I create a for loop in which I calculate the cost and use a do while loop to allow the customer to purchase as many products as they would like.
+
+Here is the for loop:
+```cpp:CashierCheckOut.cpp
+for(int i = 1; i <= 11; i++)
+        {
+            if(num == i)
+            {
+                for(int otheri = 0; otheri < num2; otheri++)
+                {
+                    cost += menu[i];
+                }
+            }
+        }
+```
+In this for loop, I am iterating over all of the current menu items. I then calculate cost by adding the price of a menu item to a variable called cost. cost is initially 0.
+
+The program then asks the cashier to input the membership status of the customer. 
+
+It then updates the customer’s cost depending on their discount. It outputs their final bill. The customer then pays their bill and receives change if they pay too much money. Look at the code I used to determine whether the customer has paid their full share and try to determine how it works.
+```cpp:CashierCheckOut.cpp
+void cashiercheckout :: salesmenu() 	
+{   //show menu
+    cout << "Abdul's Cafe and Bakery Breakfast Menu: " << endl;
+    cout << "1. YOGURT PARFAIT | $8.00 |" << endl;
+    cout << "2. BACON & EGG | $14.00 |" << endl;
+    cout << "3. EGGS BENEDICT � CANADIAN | $16.00 |" << endl;
+    cout << "4. EGGS BENEDICT � GARDEN | $15.00 |" << endl;
+    cout << "5. EGGS BENEDICT � GRAVLAX | $16.00 |" << endl;
+    cout << "6. CRAB & SPRING ONION OMELETTE | $17.00 |" << endl;
+    cout << "7. BUTTERMILK WAFFLES | $14.00 |" << endl;
+    cout << "8. HAZELNUT CHOCOLATE CR�PE | $15.00 |" << endl;
+    cout << "9. BACON BREAKFAST SANDWICH | $9.00 |" << endl;
+    cout << "10. VEGGIE BREAKFAST SANDWICH | $9.00 |" << endl;
+    //ask user for amount of products they would like to buy, and number of units
+    do{
+        cout << "Please choose the product the customer would like to purchase by entering the product number: ";
+        cin >> num;
+        cout << "How many units of the product would the customer like to purchase? ";
+        cin >> num2;
+        for(int i = 1; i <= 11; i++)
+        {
+            if(num == i)
+            {
+                for(int otheri = 0; otheri < num2; otheri++)
+                {
+                    cost += menu[i];
+                }
+            }
+        }
+        cout << "Would the customer like to purchase another product? (y/n)";
+        cin >> ans;
+    }while(ans == 'y');
+    do{
+        //find out type of membership
+        cout << "Select 'E' if the customer is an executive member, 'R' if the customer is a regular member, and 'N' if the customer is not a member: ";
+        cin >> typeofdiscount;
+    }while((typeofdiscount != 'E') && (typeofdiscount != 'R') && (typeofdiscount != 'N'));
+    if(typeofdiscount == 'E')
+    {
+        discount = 0.8;
+    }
+    else if(typeofdiscount == 'R')
+    {
+        discount = 0.9;
+    }
+    else if(typeofdiscount == 'N')
+    {
+        discount = 1;
+    }
+    discountcost = cost * discount;
+    //show cost
+    cout << "The total cost of the meal is $" << discountcost << "." << endl;
+    do
+    {
+        //get customer cash, see if they have paid right amount
+        cout << "Please enter the amount of money the customer would like to deposit: " << endl;
+        cin >> customercash;
+        customercashtotal += customercash;                  
+        if(customercashtotal > discountcost)
+        {
+            cout << "Here is the change: " << customercashtotal - discountcost << endl;
+        }
+        else if((customercash < discountcost) && (discountcost - customercashtotal != 0))
+        {
+            cout << "Here is the amount the customer still needs to pay: " << discountcost - customercashtotal << endl; 
+        }
+    }while(customercashtotal < discountcost);
+}
+```
+I will now go over the code used to determine whether the customer has paid the correct amount of money.
+```cpp:CashierCheckOut.cpp
+do
+    {
+        //get customer cash, see if they have paid right amount
+        cout << "Please enter the amount of money the customer would like to deposit: " << endl;
+        cin >> customercash;
+        customercashtotal += customercash;                  
+        if(customercashtotal > discountcost)
+        {
+            cout << "Here is the change: " << customercashtotal - discountcost << endl;
+        }
+        else if((customercash < discountcost) && (discountcost - customercashtotal != 0))
+        {
+            cout << "Here is the amount the customer still needs to pay: " << discountcost - customercashtotal << endl; 
+        }
+    }while(customercashtotal < discountcost);
+}
+```
+I used a do while loop so that the customer could not exit the program until they had paid their full amount. The customer enters the amount they wish to pay to a variable called customercash. This is then added to a variable called customer cashtotal. Both variables are initially 0. 
+
+If customercashtotal is more than the discounted bill, then the customer gets change.
+
+If customercashtotal is less than the discounted bill, the customer will continue having to input money.
+
+We will now go over the second member function, dataentrymenu(). 
+
+#### All of the code for the dataentrymenu() function:
+```cpp:CashierCheckOut.cpp
+void cashiercheckout :: dataentrymenu(customer person[50]) 
+{
+    /*//create 5 customers
+    numberofcustomers = 5;
+    customer person[50];
+    person[0].ID = 11;
+    person[0].username = "joe@gmail.com";
+    person[0].password = "bobby";
+    person[0].typeofdiscount = 'E';
+    person[1].ID = 12;
+    person[1].username = "kyle@gmail.com";
+    person[1].password = "drew";
+    person[1].typeofdiscount = 'E';
+    person[2].ID = 13;
+    person[2].username = "narr@gmail.com";
+    person[2].password = "dog";
+    person[2].typeofdiscount = 'R';
+    person[3].ID = 18;
+    person[3].username = "daad@gmail.com";
+    person[3].password = "doop";
+    person[3].typeofdiscount = 'R';
+    person[4].ID = 166;
+    person[4].username = "narrkk@gmail.com";
+    person[4].password = "dogmath";
+    person[4].typeofdiscount = 'R';*/
+    //ask what user wants, to add, update, or delete
+    do{
+        cout << "To enter a new customer into the system, please select 1. To search for an ID in the system, please select 2. To update a customer's information, please select 3. To display all the information in the database, please select 4. To delete a customer, please select 5: ";
+        cin >> IDans;
+    }while((IDans != 1) && (IDans != 2) && (IDans != 3) && (IDans != 4) && (IDans != 5));
+    if(IDans == 1)
+    {
+        cout << "Please enter the person's ID, username, password, and type of discount (E or R): ";
+        cin >> person[numberofcustomers].ID >> person[numberofcustomers].username >> person[numberofcustomers].password >> person[numberofcustomers].typeofdiscount;
+        numberofcustomers++;
+    }
+    if(IDans == 2)
+    {
+        cout << "Please enter the person's ID: ";
+        cin >> IDans;
+        for(int i = 0; i < numberofcustomers; i++)
+        {
+            if(IDans == person[i].ID)
+            {
+                cout << "ID: " << person[i].ID << endl << "Username: " << person[i].username << endl << "Password: " << person[i].password << endl << "Type of Discount: " << person[i].typeofdiscount << endl;
+            }       
+        }
+    }
+    if(IDans == 3)
+    {
+        cout << "Please enter the person's ID: ";
+        cin >> IDans;
+        cout << "Select 1 to edit the person's ID, 2 to edit the person's username, 3 to edit the person's password, or 4 to edit the person's type of discount (E or R): ";
+        cin >> choice;
+        if(choice == 1)
+        {
+            for(int i = 0; i < numberofcustomers; i++)
+            {
+                if(IDans == person[i].ID)
+                {
+                    cout << "Please enter the person's new ID: ";
+                    cin >> person[i].ID;
+                }       
+            }
+        }
+        else if(choice == 2)
+        {
+            for(int i = 0; i < numberofcustomers; i++)
+            {
+                if(IDans == person[i].ID)
+                {
+                    cout << "Please enter the person's new username: ";
+                    cin >> person[i].username;
+                }       
+            }
+        }
+        else if(choice == 3)
+        {
+            for(int i = 0; i < numberofcustomers; i++)
+            {
+                if(IDans == person[i].ID)
+                {
+                    cout << "Please enter the person's new password: ";
+                    cin >> person[i].password;
+                }       
+            }
+        }
+        else if(choice == 4)
+        {
+            for(int i = 0; i < numberofcustomers; i++)
+            {
+                if(IDans == person[i].ID)
+                {
+                    cout << "Please enter the person's new type of discount: ";
+                    cin >> person[i].typeofdiscount;
+                }       
+            }
+        }
+    }
+    if(IDans == 4)
+    {
+        //sort before displaying
+        for(int i = 0; i < numberofcustomers; i++)
+        {
+            for(int j = 0; j < numberofcustomers-1; j++)
+            {
+                if(person[j].ID > person[j+1].ID)
+                {
+                    int temp = person[j+1].ID;
+                    person[j+1].ID = person[j].ID;
+                    person[j].ID = temp;
+                }
+            }
+        }
+        for(int i = 0; i < numberofcustomers; i++)
+        {
+            cout << "ID: " << person[i].ID << endl << "Username: " << person[i].username << endl << "Type of Discount: " << person[i].typeofdiscount << endl;
+        }
+    }
+    if(IDans == 5)
+    {
+        cout << "Please enter the person's ID: ";
+        cin >> IDans;
+        for(int i = 0; i < numberofcustomers; i++)
+        {
+            if(IDans == person[i].ID)
+            {
+                position = i;
+            }
+        }
+        position2 = numberofcustomers;
+        position2--;
+        for(int i = position; i <= position2; i++)
+        {
+            person[i].ID = person[i+1].ID;
+            person[i].username = person[i+1].username;
+            person[i].password = person[i+1].password;
+            person[i].typeofdiscount = person[i+1].typeofdiscount;
+        }
+        for(int i = 0; i < position2; i++)
+        {
+            cout << "ID: " << person[i].ID << endl << "Username: " << person[i].username << endl << "Type of Discount: " << person[i].typeofdiscount << endl;
+        }
+    }
+    //sort customers
+    for(int i = 0; i < numberofcustomers; i++)
+    {
+        for(int j = 0; j < numberofcustomers-1; j++)
+        {
+            if(person[j].ID > person[j+1].ID)
+            {
+                int temp = person[j+1].ID;
+                person[j+1].ID = person[j].ID;
+                person[j].ID = temp;
+            }
+        }
+    }
+}
+```
+The dataentrymenu() function has a parameter, customer person[50]. This is an array of a structure, a datatype that allows you to store a group of data that is made up of different datatypes. I will explain it better one we take a look at where I declare and define my structure called customer, but for now, just think about it like it’s a collection of information for each customer in the system.
+
+In this function, the cashier can add a new customer to the system. They can also edit the customer’s information. I used a lot of if statements to accomplish this, and in a different blog post I will try to optimize this code. 
+
+Nevertheless, I can still explain each if statement so that you understand what is going on.
+Firstly, I use a do while loop to ensure that the cashier inputs 1, 2, 3, 4 or 5. These options determine whether the cashier will add, edit, update, or search for information about a customer on the system. 
+
+If the cashier inputs 1, they would like to add a new customer. 
+```cpp:CashierCheckOut.cpp
+if(IDans == 1)
+    {
+        cout << "Please enter the person's ID, username, password, and type of discount (E or R): ";
+        cin >> person[numberofcustomers].ID >> person[numberofcustomers].username >> person[numberofcustomers].password >> person[numberofcustomers].typeofdiscount;
+        numberofcustomers++;
+    }
+```
+As they add a new customer, the structure called person will have new information inputted into the first available index, which is called numberofcustomers. The cashier then inputs relevant information about the customer, including their ID, username, password, and type of discount. Every time you add a new customer, numberofcustomers increases by one. This is so that we don’t overwrite the information of other customers.
+
+If the cashier enters 2, then they want to search for the information associated with an ID in the system. We use a simple for loop to just find the person and output their information.
+```cpp:CashierCheckOut.cpp
+if(IDans == 2)
+{
+    cout << "Please enter the person's ID: ";
+    cin >> IDans;
+    for(int i = 0; i < numberofcustomers; i++)
+    {
+        if(IDans == person[i].ID)
+        {
+            cout << "ID: " << person[i].ID << endl << "Username: " << person[i].username << endl << "Password: " << person[i].password << endl << "Type of Discount: " << person[i].typeofdiscount << endl;
+        }       
+    }
+}
+```
+If the cashier inputs 3, then we want to update their information. We do this by asking them whether they would like to update the person’s ID, username, password or discount. We use for loops to make sure we are editing the information of the right customer.
+```cpp:CashierCheckOut.cpp
+if(IDans == 3)
+{
+    cout << "Please enter the person's ID: ";
+    cin >> IDans;
+    cout << "Select 1 to edit the person's ID, 2 to edit the person's username, 3 to edit the person's password, or 4 to edit the person's type of discount (E or R): ";
+    cin >> choice;
+    if(choice == 1)
+    {
+        for(int i = 0; i < numberofcustomers; i++)
+        {
+            if(IDans == person[i].ID)
+            {
+                cout << "Please enter the person's new ID: ";
+                cin >> person[i].ID;
+            }       
+        }
+    }
+    else if(choice == 2)
+    {
+        for(int i = 0; i < numberofcustomers; i++)
+        {
+            if(IDans == person[i].ID)
+            {
+                cout << "Please enter the person's new username: ";
+                cin >> person[i].username;
+            }       
+        }
+    }
+    else if(choice == 3)
+    {
+        for(int i = 0; i < numberofcustomers; i++)
+        {
+            if(IDans == person[i].ID)
+            {
+                cout << "Please enter the person's new password: ";
+                cin >> person[i].password;
+            }       
+        }
+    }
+    else if(choice == 4)
+    {
+        for(int i = 0; i < numberofcustomers; i++)
+        {
+            if(IDans == person[i].ID)
+            {
+                cout << "Please enter the person's new type of discount: ";
+                cin >> person[i].typeofdiscount;
+            }       
+        }
+    }
+}
+```
+If the cashier selects 4, they would like to display all of the customers in the database. We sort through the database, making sure the ID’s will be in descending order. Then we use a for loop to display all of the information. If I was to do this again, I would not have directly edited the database. I would have probably created another to make edits on. Saving the information to a file would have made it easier to keep good backups of customer information.
+```cpp:CashierCheckOut.cpp
+if(IDans == 4)
+{
+    //sort before displaying
+    for(int i = 0; i < numberofcustomers; i++)
+    {
+        for(int j = 0; j < numberofcustomers-1; j++)
+        {
+            if(person[j].ID > person[j+1].ID)
+            {
+                int temp = person[j+1].ID;
+                person[j+1].ID = person[j].ID;
+                person[j].ID = temp;
+            }
+        }
+    }
+    for(int i = 0; i < numberofcustomers; i++)
+    {
+        cout << "ID: " << person[i].ID << endl << "Username: " << person[i].username << endl << "Type of Discount: " << person[i].typeofdiscount << endl;
+    }
+}
+```
+If the cashier selects 5, then they would like to delete a customer. We must first figure out where the customer is in the array of persons in the database. Once we know, we save that number into the variable position. position2 will be the number of customers, and we reduce it by one as we are deleting a customer. We use a for loop to make sure that the person we want to delete is at the end of the array. We then display the customers who are still in the database and sort them to make sure the database still looks clean. 
+```cpp:CashierCheckOut.cpp
+if(IDans == 5)
+{
+    cout << "Please enter the person's ID: ";
+    cin >> IDans;
+    for(int i = 0; i < numberofcustomers; i++)
+    {
+        if(IDans == person[i].ID)
+        {
+            position = i;
+        }
+    }
+    position2 = numberofcustomers;
+    position2--;
+    for(int i = position; i <= position2; i++)
+    {
+        person[i].ID = person[i+1].ID;
+        person[i].username = person[i+1].username;
+        person[i].password = person[i+1].password;
+        person[i].typeofdiscount = person[i+1].typeofdiscount;
+    }
+    for(int i = 0; i < position2; i++)
+    {
+        cout << "ID: " << person[i].ID << endl << "Username: " << person[i].username << endl << "Type of Discount: " << person[i].typeofdiscount << endl;
+    }
+}
+//sort customers
+for(int i = 0; i < numberofcustomers; i++)
+{
+    for(int j = 0; j < numberofcustomers-1; j++)
+    {
+        if(person[j].ID > person[j+1].ID)
+        {
+            int temp = person[j+1].ID;
+            person[j+1].ID = person[j].ID;
+            person[j].ID = temp;
+        }
+    }
+}
+```
+### SelfCheckOut.h
+Here, I declare a class called selfcheckout. It is derived from the base class mainscreen. In it, we create a new function called findcost(). The parameters are a newID and customer. Both selfcheckout and cashiercheckout are both derived from mainscreen, as they have very similar functions but are not exactly the same. Therefore I decided to use object-oriented programming. Imagine if I didn’t use an object-oriented programming paradigm. My code would have been extremely complex and lack flexibility. I wouldn’t be able to reuse several components of my code.
+```cpp:SelfCheckOut.h
+#ifndef SELFCHECKOUT_H
+#define SELFCHECKOUT_H
+//include all libraries to be used
+#include <iostream>
+#include <string>
+#include "CASHIERCHECKOUT.h"
+#include "MAINSCREEN.h"
+#include "STRUCTURE.h"
+
+using namespace std;
+//create selfcheckout, inherit mainscreen
+class selfcheckout : public mainscreen
+{   
+    public:
+        void findcost(int newID, customer person[50]);
+};
+#endif
+```
+### SelfCheckOut.cpp
+
+In SelfCheckOut.cpp, I create a member function called findcost() from the selfcheckout class. The person enters the product they would like to buy, the discount is performed according to information from their account, and they pay their balance. If they over or underpay, the system notifies them. 
+```cpp:SelfCheckOut.cpp
+//include all libraries to be used
+#include <iostream>
+#include "SELFCHECKOUT.h"
+#include "CASHIERCHECKOUT.h"
+#include "MAINSCREEN.h"
+#include "STRUCTURE.h"
+#include <string>
+
+using namespace std;
+
+void selfcheckout :: findcost(int newID, customer person[50]) 
+{
+    //create customers
+    /*customer person[50];
+    person[0].ID = 11;
+    person[0].username = "joe@gmail.com";
+    person[0].password = "bobby";
+    person[0].typeofdiscount = 'E';
+    person[1].ID = 12;
+    person[1].username = "kyle@gmail.com";
+    person[1].password = "drew";
+    person[1].typeofdiscount = 'E';
+    person[2].ID = 13;
+    person[2].username = "narr@gmail.com";
+    person[2].password = "dog";
+    person[2].typeofdiscount = 'R';
+    person[3].ID = 18;
+    person[3].username = "daad@gmail.com";
+    person[3].password = "doop";
+    person[3].typeofdiscount = 'R';
+    person[4].ID = 166;
+    person[4].username = "narrkk@gmail.com";
+    person[4].password = "dogmath";
+    person[4].typeofdiscount = 'R';*/
+    //show menu
+    cout << "Abdul's Cafe and Bakery Breakfast Menu: " << endl;
+    cout << "1. YOGURT PARFAIT | $8.00 |" << endl;
+    cout << "2. BACON & EGG | $14.00 |" << endl;
+    cout << "3. EGGS BENEDICT � CANADIAN | $16.00 |" << endl;
+    cout << "4. EGGS BENEDICT � GARDEN | $15.00 |" << endl;
+    cout << "5. EGGS BENEDICT � GRAVLAX | $16.00 |" << endl;
+    cout << "6. CRAB & SPRING ONION OMELETTE | $17.00 |" << endl;
+    cout << "7. BUTTERMILK WAFFLES | $14.00 |" << endl;
+    cout << "8. HAZELNUT CHOCOLATE CR�PE | $15.00 |" << endl;
+    cout << "9. BACON BREAKFAST SANDWICH | $9.00 |" << endl;
+    cout << "10. VEGGIE BREAKFAST SANDWICH | $9.00 |" << endl;
+    //ask user for amount of products they would like to buy, and number of units
+    do{
+        cout << "Please choose the product you would like to purchase by entering the product number: ";
+        cin >> num;
+        cout << "How many units of the product would you like to purchase? ";
+        cin >> num2;
+        for(int i = 1; i <= 11; i++)
+        {
+            if(num == i)
+            {
+                for(int otheri = 0; otheri < num2; otheri++)
+                {
+                    cost += menu[i];
+                }
+            }
+        }
+        cout << "Would you like to purchase another product? (y/n)";
+        cin >> ans;
+    }while(ans == 'y');
+    //since it is self checkout, already know membership
+    typeofdiscount = person[newID].typeofdiscount;
+    if(typeofdiscount == 'E')
+    {
+        discount = 0.8;
+    }
+    if(typeofdiscount == 'R')
+    {
+        discount = 0.9;
+    }
+    discountcost = cost * discount;
+    //show cost
+    cout << "The total cost of your meal is $" << discountcost << "." << endl;
+    do
+    {
+        //get customer cash, see if they have paid right amount
+        cout << "Please enter the amount of money you would like to deposit: " << endl;
+        cin >> customercash;
+        customercashtotal += customercash;                  
+        if(customercashtotal > discountcost)
+        {
+            cout << "Here is your change: " << customercashtotal - discountcost << endl;
+        }
+        else if((customercash < discountcost) && (discountcost - customercashtotal != 0))
+        {
+            cout << "Here is the amount you still need to pay: " << discountcost - customercashtotal << endl;   
+        }
+    }while(customercashtotal < discountcost);
+}
+```
+### structure.h
+In this file, I create my structure data type named customer. In it is the ID, username, password, and typeofdiscount for the customer. Why did I choose to use a struct for my customer information? A structure can store many different data types, and this allows me to record the customer’s ID, username, password, and typeofdiscount in one place.
+
+```cpp:structure.h
+#ifndef STRUCTURE_H
+#define STRUCTURE_H
+//include all libraries to be used
+#include <string>
+
+using namespace std;
+//create structure for customer information
+struct customer 
+{
+    int ID;
+    string username;
+    string password;
+    char typeofdiscount;
+};
+    
+#endif
+```
+### main.cpp
+
+In this main file, we include all of the modules we would like to use. We create an object m from mainscreen and call on the mainmessage function. The user will then run the program, and once they are finished, they will see the message: “Thank you for Shopping at Abdul’s Cafe! Come Back Again.”
+
+```cpp:main.cpp
+//Abdul-Samad Olagunju
+//Cafe Final Project
+
+//include all libraries to be used
+#include <iostream>
+#include "SELFCHECKOUT.h"
+#include "CASHIERCHECKOUT.h"
+#include "MAINSCREEN.h"
+#include "STRUCTURE.h"
+#include <string>
+
+using namespace std;
+
+int main() 
+{
+    //welcome message
+    cout << "Welcome to Abdul's Cafe!" << endl;
+    //create object and call on function needed
+    mainscreen m;
+    m.mainmessage();
+    //thank you message
+    cout << "Thank you for shopping at Abdul's Cafe! Come Back Again!" << endl; 
+}
+```
+In addition, I included a user manual and a design document that may be of interest to you.
+If there was an important takeaway from this blog post, it would be to name your variables well and make sure you use camelCase. Allowing your code to have good readability will make you a better programmer. In addition, make sure that you make use of Object-Oriented Programming Principles whenever you can. It can make your code much easier to manage.
 
