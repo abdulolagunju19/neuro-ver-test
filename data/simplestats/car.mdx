@@ -1,0 +1,230 @@
+---
+title: 'C++ Car Company Project'
+publishedAt: '2022-01-04'
+summary: 'I provide a tutorial on a simple car company c++ interface.'
+---
+
+# Tutorials
+
+Today, we will go over some code for a carwash company project I did earlier. In this project, we have a carwash company that will perform windshield repairs in the summer, and car washing in the winter. Customers that have visited the company in a prior visit get a 20% discount. In addition, customer records will be saved to a text file.
+
+In addition, I included a user manual and a design document that may be of interest to you.
+
+1. [Click Here to view the Design Document](https://github.com/abdulolagunju19/CafeProject/blob/521dd2c639df051e7fa58921a7c26eef8be63a7a/DesignDocument_FinalProject_Cafe.pdf)
+2. [Click Here to view the User Manual](https://github.com/abdulolagunju19/CafeProject/blob/521dd2c639df051e7fa58921a7c26eef8be63a7a/User%20Manual_FinalProject_Cafe.pdf)
+
+In this project, I create classes and make use of objects. 
+
+You can see why separating classes and functions into separate files can make your code much cleaner after trying to read through this example. Large projects cannot all be done with all of the code in one file, like this one.
+
+To set up your own C++ environment on your computer, take a look at this video: [Set Up Your C++ Environmnet](https://youtu.be/GWJqsmitR2I)
+
+Anyways, let’s take a look at the code.
+
+### carcompanyabdul.cpp
+
+I begin by including the modules I would like to use in this project. I will talk about fstream, cstdlib, and time.h as you may not have heard about them before. fstream allows you to perform input/output functions involving files. cstdlib has many general functions, including generating random numbers and managing memory. It can also convert strings to integers, sort elements in an array, and abort certain processes. Take a look at this for more information: [cstdlib](https://www.cplusplus.com/reference/cstdlib/)
+
+time.h allows you to manipulate date and time. 
+
+I created a class called WindShieldRep that will take care of the windshield repairs. The public variables concern the prices of the services available, namely for a small crack in the windshield or a large crack in the windshield. In addition, the number of repairs and the total price are declared. 
+
+The function in this class called summerBill() will calculate your bill according to the repairs you require.
+
+I also created a class called CarWash. It does a very similar job to WindShieldRep. Take a look at the variables and try to work out what is going on.
+
+Finally, I created a class called UserInfo. In it, we will have the variables surname and age. The function getInfo() will ask the user for their information.
+
+```cpp:carcompanyabdul.cpp
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <cstdlib>
+#include <time.h>
+using namespace std;
+
+class WindShieldRep
+{
+    //declare variables, create function
+    public:
+        float smallcrack = 100;
+        float bigcrack = 150;
+        float numofrepairs, total;
+        float summerBill()  
+        {
+            //ask user for number of repairs, then get total bill
+            cout << "How many small crack repairs would you like to do on your car? ";
+            cin >> numofrepairs;
+            smallcrack *= numofrepairs;
+            cout << "How many big crack repairs would you like to do on your car? ";
+            cin >> numofrepairs;
+            bigcrack *= numofrepairs;   
+            total = bigcrack + smallcrack;
+        }
+};
+class CarWash
+{
+    //declare variable, create function
+    public:
+        float inwash = 80;
+        float inoutwash = 200;
+        float numofwashes, total;
+        float winterBill()
+        {
+            //get number of washes, get total cost
+            cout << "How many inner washes would you like to do on your car? ";
+            cin >> numofwashes;
+            inwash *= numofwashes;
+            cout << "How many inner and outer washes would you like to do on your car? ";
+            cin >> numofwashes;
+            inoutwash *= numofwashes;   
+            total = inwash + inoutwash;
+        }
+};
+class UserInfo
+{
+    //get user info
+    public:
+        char surname[50];
+        int age;
+        void getInfo()
+        {
+            cout << "Please enter your surname: ";
+            cin >> surname;
+            cout << "Please enter your age: ";
+            cin >> age;
+        }
+};
+
+//declare discount function
+float discount(char, float);
+
+int main()
+{
+    //declare variables
+    int count = 0;
+    char check[50];
+    char ans;
+    float total = 0;
+    char id[3];
+    
+    //open file to read and write
+    ofstream write("carcompanyreceipt.txt", ios :: app);
+    ifstream read("carcompanyreceipt.txt");
+    cout << "Welcome to Olagunju's Car Wash! We offer you the best prices and the most customer satisfaction!" << endl;
+    
+    //run program until no more customers need to input information
+    do
+    {
+        //get id from user
+        count = 0;
+        cout << "Please enter the first digit of your id: ";
+        cin >> id[0];
+        cout << "Please enter the second digit of your id: ";
+        cin >> id[1];
+        cout << "Please enter the third digit of your id: ";
+        cin >> id[2];
+        
+        //check if id number is already in system
+        while(!read.eof())
+        {
+            read >> check;
+            if((check[0] == id[0]) && (check[1] == id[1]) && (check[2] == id[2]))
+            {
+                count++;
+            }
+        }
+        
+        //write id number, surname and age to file
+        write << "ID Number: " << id << endl;
+        UserInfo info;
+        info.getInfo();
+        write << "Surname: " << info.surname << endl;
+        write << "Age: " << info.age << endl;
+        
+        //if counter adds 1, customer receives 20% discount
+        if(count >= 1)
+        {
+            cout << "Our system tells us that you are a returning customer. You will receive a 20% discount on your final bill!" << endl;
+        }
+        else
+        {
+            cout << "Our system tells us that you are a new customer. Welcome!" << endl;
+        }
+        
+        //show summer and winter deals
+        cout << "We have exclusive summer and winter deals." << endl;
+        cout << "If you select our summer deal, you can repair a small crack on your windshield for $100, or a big crack for $150." << endl;
+        cout << "If you select our winter deal, you can have an inner wash done on your car for $80, or an inner and outer wash done for $200." << endl;
+        
+        //ask whether customer wants summer or winter deal
+        do
+        {
+            cout << "Would you like to access our summer or winter deal? (s/w) ";
+            cin >> ans;
+        }while(ans != 's' && ans != 'w');
+        
+        //if customer wants summer deal
+        if(ans == 's')
+        {
+            //create windshield object, if customer is returning, give 20% discount
+            WindShieldRep obj;
+            obj.summerBill();
+            if(count >= 1)
+            {
+                ans = 'y';
+            }
+            else
+            {
+                ans = 'n';
+            }
+            total = obj.total;
+            write << "Your total costs are: $" << discount(ans, total) << endl;
+        }
+        //if customer wants winter deal
+        if(ans == 'w')
+        {
+            //create carwash object, if customer is returning, give 20% discount
+            CarWash obj;
+            obj.winterBill();
+            if(count >= 1)
+            {
+                ans = 'y';
+            }
+            else
+            {
+                ans = 'n';
+            }
+            total = obj.total;
+            write << "Your total costs are: $" << discount(ans, total) << endl;
+            cout << "Your total costs are: $" << discount(ans, total) << endl;
+        }
+        write << "--------------------------------------" << endl;
+        
+        //ask if there is another customer, if there is, program will run again
+        cout << "Is there another customer whose information needs to be inputted? (y/n) ";
+        cin >> ans;
+    }while(ans == 'y'); 
+    
+    //give closing statement
+    cout << "Thank you for visiting our business!" << endl;
+    //close files7
+    write.close();
+    read.close();
+}
+
+//discount function, gives 20% discount
+float discount(char ans, float bill)
+{
+    if(ans == 'y')
+    {
+        bill *= 0.8;
+    }
+    return bill;
+}
+```
+1. [Click Here to view the Design Document](https://github.com/abdulolagunju19/CafeProject/blob/521dd2c639df051e7fa58921a7c26eef8be63a7a/DesignDocument_FinalProject_Cafe.pdf)
+2. [Click Here to view the User Manual](https://github.com/abdulolagunju19/CafeProject/blob/521dd2c639df051e7fa58921a7c26eef8be63a7a/User%20Manual_FinalProject_Cafe.pdf)
+
+Thanks for reading!
+  
