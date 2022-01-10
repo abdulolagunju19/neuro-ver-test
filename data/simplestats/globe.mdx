@@ -1,0 +1,53 @@
+---
+title: 'Globe Animations'
+publishedAt: '2021-08-31'
+summary: "Let's learn about how to add cool globe animations to our react applications."
+---
+
+Welcome to another blog post!
+
+So, usually in these blog posts I talk about some scientific paper or famous individual, but let's try something different this time. Let's take a look at some web development.
+
+## Quote of the Post
+> "My career was sputtering until I did a 360 and got headed in the right direction." - Tracy Mcgrady
+
+So, this summer I started learning about HTML, CSS, Javascript, React, and Next.js. In react, there are lots of cool libraries you can implement in your own projects. What does this mean? Well, other people write code to develop some fantastic applications, and it gets uploaded to something called the npm registry. You then use a package manager called npm to add all of these crazy cool pieces of code to your own projects. 
+
+react-globe.gl looks fantastic on web applications. Take a look at this: [Globe Example 1](https://vasturiano.github.io/react-globe.gl/example/random-arcs/). And take a look at this: [Globe Example 2](https://vasturiano.github.io/react-globe.gl/example/airline-routes/us-international-outbound.html). Let's take a look at this: [Globe Example 3](https://vasturiano.github.io/react-globe.gl/example/submarine-cables/index.html). Awesome, right?
+
+So, to add this to your project, you first have to create a react application. The Net Ninja has a great series on doing just that: [The Net Ninja- React](https://youtu.be/j942wKiXFu8).
+
+Then, we have to add react-globe.gl to our project. Write npm i react-globe.gl or yarn add react-globe.gl to your command line (I write it to the command line of VSCode). Now you can use the library.
+
+Now create a file called World.jsx. 
+
+```jsx:World.jsx
+import React from "react";
+
+import Globe from "react-globe.gl";
+
+export const World = () => {
+  return <Globe />;
+};
+```
+Now, import World to your App.js. 
+```javascript:App.js
+import React from "react";
+
+import { World } from "./World";
+
+export default function App() {
+  return (
+    <div className="App">
+      <World />
+    </div>
+  );
+}
+```
+You now have a globe that looks like this: [React Globe](https://vasturiano.github.io/react-globe.gl/example/submarine-cables/index.html)
+
+You can play around with the code to see if you can create any of the other examples on this page: [NPM- react-globe.gl](https://www.npmjs.com/package/react-globe.gl)
+
+Thanks for reading!
+
+![Westbrook](/images/dancing.gif)
