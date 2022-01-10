@@ -1,0 +1,279 @@
+---
+title: 'C++ Café Project'
+publishedAt: '2022-01-07'
+summary: 'I provide a C++ tutorial on café project.'
+---
+
+# Tutorials
+
+## Quote of the Post
+
+> "Good intentions were not enough, not when so much depended on my skills, when the difference between tragedy and triumph was defined by one or two millimeters." - Paul Kalinithi
+
+Today, we will go over some code for a café project I did earlier. This project incorporates Object-Oriented Programming, and you will learn about the file structure of C++ projects. You will also learn about how to use header and main files in this blog post. I will try to get you to understand the decisions I made in this project. 
+
+**One thing to keep in mind is that the syntax for the functions and classes are not in camelCase, and you should avoid this mistake in your own code.**
+
+There are several files in this project that are important, and I will go over all of them. 
+
+To set up your own C++ environment on your computer, take a look at this video: [Set Up C++ Environment](https://youtu.be/GWJqsmitR2I)
+
+Let's dive into the code:
+
+### Mainscreen.h
+
+Our first file is the Mainscreen.h file.
+
+In this header file I include all of the modules I would like to use. This is where I declare my mainscreen class (should be MainScreen according to camelCase conventions), which is the base class for this project. 
+
+The cashier-checkout and self-checkout classes will be derived from the mainscreen class. The variables declared in the mainscreen class are used throughout the project, so make sure you take a good look at them. If any variable names confuse you, come back to this file.
+
+That everything is public is ridiculous, I definitely should have protected this information at least. Try to figure out why. 
+
+```cpp:Mainscreen.h
+#ifndef MAINSCREEN_H
+#define MAINSCREEN_H
+//include all libraries to be used
+#include <iostream>
+#include "SELFCHECKOUT.h"
+#include "CASHIERCHECKOUT.h"
+#include <string>
+#include "STRUCTURE.h"
+
+using namespace std;
+
+//create class mainscreen, declare members required for program
+class mainscreen 
+{
+    public:
+        int numberofcustomers = 5;
+        int continueornot;
+        int option, whichmenu;
+        bool correctlogin = false;
+        bool correctpassword;
+        char ans;
+        int num, num2;
+        float discountcost;
+        int id;
+        int position, position2;
+        int choice;
+        int IDans, IDnum;
+        int counter;
+        float discount;
+        float customercash;
+        float customercashtotal = 0;
+        char typeofdiscount;
+        float cost = 0;
+        int password;
+        void mainmessage();
+        float menu[11] = {0, 8, 14, 16, 15, 16, 17, 14, 15, 9, 9};
+};
+#endif
+
+```
+### Mainscreen.cpp
+
+Here is the Mainscreen.cpp file. 
+
+#### Take a look at all of Mainscreen.cpp:
+```cpp:Mainscreen.cpp
+//include all libraries to be used
+#include <iostream>
+#include "SELFCHECKOUT.h"
+#include "CASHIERCHECKOUT.h"
+#include "MAINSCREEN.h"
+#include "STRUCTURE.h"
+#include <string>
+
+using namespace std;
+
+void mainscreen :: mainmessage()
+{
+    //create information for five customers
+    customer person[50];
+    person[0].ID = 11;
+    person[0].username = "joe@gmail.com";
+    person[0].password = "bobby";
+    person[0].typeofdiscount = 'E';
+    person[1].ID = 12;
+    person[1].username = "kyle@gmail.com";
+    person[1].password = "drew";
+    person[1].typeofdiscount = 'E';
+    person[2].ID = 13;
+    person[2].username = "narr@gmail.com";
+    person[2].password = "dog";
+    person[2].typeofdiscount = 'R';
+    person[3].ID = 18;
+    person[3].username = "daad@gmail.com";
+    person[3].password = "doop";
+    person[3].typeofdiscount = 'R';
+    person[4].ID = 166;
+    person[4].username = "narrkk@gmail.com";
+    person[4].password = "dogmath";
+    person[4].typeofdiscount = 'R';
+    int othernum;
+    //do while so that customer enters correct id and password
+    do{
+        numberofcustomers = 5;
+        cout << "Please enter your correct login information: " << endl;
+        cout << "ID: ";
+        cin >> id;
+        cout << "Password: ";
+        cin >> person[40].password;
+        for(int i = 0; i <= numberofcustomers; i++)
+        {
+            if((id == person[i].ID) && (person[40].password == person[i].password))
+            {
+                othernum = i;
+                correctlogin = true;
+            }
+        }
+    }while(correctlogin == false);
+    //do while if user wants to continue shopping
+    do{
+        //so user enters 1 or 2
+        do
+        {
+            if(correctlogin == true)
+            {
+                cout << "Please enter option 1 or option 2 in order to identify your preferred method of check out. " << endl;
+                cout << "Option 1: Self Check Out" << endl; 
+                cout << "Option 2: Check Out by Cashier" << endl;
+                cin >> option;
+            }
+        }while((option != 1) && (option != 2));
+        if(option == 1)
+        {
+            //create object s for self check out
+            selfcheckout s;
+            s.findcost(othernum, person);
+        }
+        if(option == 2) 
+        {   
+            //create object c for cashiercheckout
+            cashiercheckout c;
+            //must enter 1 or 2 to enter sales menu of data entry menu
+            do{
+                cout << "Select 1 to enter the sales menu, or 2 to enter the data entry menu: ";
+                cin >> whichmenu;
+            }while((whichmenu != 1) && (whichmenu != 2));
+            if (whichmenu == 1)
+            {
+                //call on function for sales menu
+                c.salesmenu();
+            }
+            else if(whichmenu == 2)
+            {
+                //call on function for data entry menu
+                c.dataentrymenu(person);
+            }
+        }
+        cout << "If you would like to continue shopping, press 1. If you would like to quit the program, press 2: ";
+        cin >> continueornot;
+    }while(continueornot == 1);
+}
+```
+In the mainscreen file we define the mainmessage() function (**mainmessage() should be mainMessage according to camelCase conventions**). This is a member function, declared in the mainscreen class. 
+
+In mainmessage(), we initialize some tester user data. 
+```cpp:Mainscreen.cpp
+    customer person[50];
+    person[0].ID = 11;
+    person[0].username = "joe@gmail.com";
+    person[0].password = "bobby";
+    person[0].typeofdiscount = 'E';
+    person[1].ID = 12;
+    person[1].username = "kyle@gmail.com";
+    person[1].password = "drew";
+    person[1].typeofdiscount = 'E';
+    person[2].ID = 13;
+    person[2].username = "narr@gmail.com";
+    person[2].password = "dog";
+    person[2].typeofdiscount = 'R';
+    person[3].ID = 18;
+    person[3].username = "daad@gmail.com";
+    person[3].password = "doop";
+    person[3].typeofdiscount = 'R';
+    person[4].ID = 166;
+    person[4].username = "narrkk@gmail.com";
+    person[4].password = "dogmath";
+    person[4].typeofdiscount = 'R';
+```
+We then ask the user to enter in their login information and authenticate their information. 
+```cpp:Mainscreen.cpp
+//do while so that customer enters correct id and password
+    do{
+        numberofcustomers = 5;
+        cout << "Please enter your correct login information: " << endl;
+        cout << "ID: ";
+        cin >> id;
+        cout << "Password: ";
+        cin >> person[40].password;
+        for(int i = 0; i <= numberofcustomers; i++)
+        {
+            if((id == person[i].ID) && (person[40].password == person[i].password))
+            {
+                othernum = i;
+                correctlogin = true;
+            }
+        }
+    }while(correctlogin == false);
+```
+We use a for loop to check whether the id of the user is the same as their password. This seems like a convoluted solution in this code, and I definitely would have made use of a better authentication method today. 
+
+We now allow the user to do their shopping.
+```cpp:Mainscreen.cpp
+//do while if user wants to continue shopping
+    do{
+        //so user enters 1 or 2
+        do
+        {
+            if(correctlogin == true)
+            {
+                cout << "Please enter option 1 or option 2 in order to identify your preferred method of check out. " << endl;
+                cout << "Option 1: Self Check Out" << endl; 
+                cout << "Option 2: Check Out by Cashier" << endl;
+                cin >> option;
+            }
+        }while((option != 1) && (option != 2));
+        if(option == 1)
+        {
+            //create object s for self check out
+            selfcheckout s;
+            s.findcost(othernum, person);
+        }
+        if(option == 2) 
+        {   
+            //create object c for cashiercheckout
+            cashiercheckout c;
+            //must enter 1 or 2 to enter sales menu of data entry menu
+            do{
+                cout << "Select 1 to enter the sales menu, or 2 to enter the data entry menu: ";
+                cin >> whichmenu;
+            }while((whichmenu != 1) && (whichmenu != 2));
+            if (whichmenu == 1)
+            {
+                //call on function for sales menu
+                c.salesmenu();
+            }
+            else if(whichmenu == 2)
+            {
+                //call on function for data entry menu
+                c.dataentrymenu(person);
+            }
+        }
+        cout << "If you would like to continue shopping, press 1. If you would like to quit the program, press 2: ";
+        cin >> continueornot;
+    }while(continueornot == 1);
+}
+```
+In this block of code, we ask the user if they want to use a cashier-checkout or a self-checkout. We create an object for self-checkout called s and call a function called findcost() if they select the self-checkout. 
+
+We create an object for a cashier-checkout called c and call a function called salesmenu() or dataentry() if they want a cashier-checkout. The cashier can either choose to edit customer information or carry out the transaction for the customer.
+
+As self-checkout and cashier-checkout perform a similar task, it makes sense to use object-oriented programming and derive them from the same class.
+
+We wrap the code in do while loops so that the program continues to run if the user wants it to, and so that the user chooses one of the available options.
+
+Making a front end for this using HTML and JavaScript would be fun, but C++ isn’t really as developed as other web development technologies in terms of the backend for small projects such as this one.
+
