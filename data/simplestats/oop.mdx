@@ -1,0 +1,382 @@
+---
+title: 'C++ Sorting Project'
+publishedAt: '2022-01-04'
+summary: 'Let's take a look at some sorting algorithms.'
+---
+
+# Tutorials
+
+I need to review my object-oriented programming, so I’ll take a look at one of my old projects that made use of this concept. Hopefully, it’ll give you some insight into this subject. 
+
+In this project, I designed a program in which you enter the kind of sort you would like to perform for a certain array. There are several different sorting algorithms, so check out this website to get a better idea about them: [Sorting Algorithms](https://www.cs.usfca.edu/~galles/visualization/ComparisonSort.html)
+
+I will go over the bubble sort algorithm in detail and leave you to figure out the other algorithms.
+
+To set up your own C++ environment on your computer, take a look at this video: [Set Up Your C++ Environment](https://youtu.be/GWJqsmitR2I)
+
+Here are all of the files:
+
+### bubblesort.h
+
+This header file shows you the different functions I used in the bubblesort.cpp file.
+I have declared my class BubbleSort. In it are the functions that will allow the user to enter the size of the array they want sorted, sort the array with the bubblesort algorithm, and finally display the array to the user. The variables are private so that I can create variables with the same names in my other sorting algorithm classes. These private variables will only be visible to the BubbleSort class.
+
+```cpp:bubblesort.h
+#ifndef BUBBLESORT_H
+#define BUBBLESORT_H
+
+//declare class for bubblesort
+class BubbleSort
+{
+private:
+    int size, i, arr[50], j, temp;      
+public:
+    int enterBArray();
+    int sortBubble();
+    int displaySortBubble();
+};
+
+#endif
+```
+### bubblesort.cpp
+In this file, we will be getting the size of the array, and the user will input what is in the array. The function is enterBArray (Enter BubbleSort Array).  I use a for loop to iterate over the array and allow the user to input some numbers.
+
+We will also perform the bubble sort, and the sortBubble function will accomplish this. Check out a visual of the Bubble Sort here:
+
+![Bubble Sort](/images/bubble1.gif)
+
+Here's another visual:
+
+![BubbleSort](/images/bubble2.gif)
+
+In a bubble sort, we compare 2 numbers in the array that are right next to each other. We then move the bigger number to the right of the array (ascending order). In the function sortBubble(), I create a for loop to select one element of the array. I will then compare this element to all of the other elements of the array. If it is bigger than the other elements in the array, the two values will switch places. 
+
+For example, let’s say that I have this array => [9,2,5,6,7]. I will compare 9 with 2. 9 is bigger, so 9 and 2 will swap places. Now my array is this => [2,9,5,6,7]. Eventually my array will look like this, as [2,5,6,7,9], as 9 is bigger than all of the elements in front of it. This process will continue for every element in the array. We are just moving an element further up in the array if it is bigger than the one next to it.
+
+We will then display the array with a simple for loop.
+```cpp:bubblesort.cpp
+#include <iostream>
+#include "BUBBLESORT.h"
+using namespace std;
+
+//find size of array, and values of elements
+int BubbleSort :: enterBArray()
+{
+    cout << "Please enter the size of the array: ";
+    cin >> size;
+    for(int i = 0; i < size; i++)
+    {
+        cout << "Please enter the value of the array element " << i + 1 << ": ";
+        cin >> arr[i];
+    }
+}
+//sort using bubblesort method
+int BubbleSort :: sortBubble()
+{
+    for(int i = 0; i < size; i++)
+    {
+        for(int j = 0; j < size-1; j++)
+        {
+            if(arr[j] > arr[j+1])
+            {
+                int temp = arr[j+1];
+                arr[j+1] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+}
+//display array
+int BubbleSort :: displaySortBubble()
+{
+    cout << "Here is the sorted array: " << endl;
+    for(int i = 0; i < size; i++)
+    {
+        cout << arr[i];
+        cout << " ";
+    }
+    cout << endl;
+}
+```
+### insertsort.h
+```cpp:insertsort.h
+#ifndef INSERTSORT_H
+#define INSERTSORT_H
+
+//declare class for insert sort
+class InsertSort
+{
+private:
+    int size, i, arr[50], j, temp;      
+public:
+    int enterIArray();
+    int sortInsert();
+    int displaySortInsert();
+};
+
+#endif
+```
+### insertsort.cpp
+This is what the insert sort looks like:
+![InsertSort](/images/insert1.gif)
+![InsertSort](/images/insert2.gif)
+```cpp:insertsort.cpp
+#include <iostream>
+#include "INSERTSORT.h"
+using namespace std;
+
+//find values and size of array
+int Insertsort :: enterIArray()
+{
+    cout << "Please enter the size of the array: ";
+    cin >> size;
+    for(int i = 0; i < size; i++)
+    {
+        cout << "Please enter the value of the array element " << i + 1 << ": ";
+        cin >> arr[i];
+    }
+}
+//carry out sort using insert method
+int InsertSort :: sortInsert()
+{
+    for(int i=1; i < size; i++)
+    {
+        temp = arr[i];
+        j = i-1;
+        while ((temp<arr[j]) && (j>=0))
+        {
+            arr[j+1] = arr[j];
+            j = j-1;
+        }
+        arr[j+1] = temp;
+    }
+
+}
+//display array
+int InsertSort :: displaySortInsert()
+{
+    cout << "Here is the sorted array: " << endl;
+    for(int i = 0; i < size; i++)
+    {
+        cout << arr[i];
+        cout << " ";
+    }
+    cout << endl;
+}
+```
+### quicksort.h
+```cpp:quicksort.h
+#ifndef QUICKSORT_H
+#define QUICKSORT_H
+
+//declare class, parameterized functions
+class QuickSort
+{
+private:
+    int size, i, arr[50], j, temp;      
+public:
+    int enterQArray();
+    int returnSize();
+    int partition(int left, int right);
+    void quickSort(int left, int right); 
+    int displaySortQuick();
+};
+
+#endif
+```
+### quicksort.cpp
+Here is a visual:
+![QuickSort](/images/quick1.gif)
+![QuickSort](/images/quick2.gif)
+```cpp:quicksort.cpp
+#include <iostream>
+#include "QUICKSORT.h"
+using namespace std;
+
+//find values of array
+int QuickSort :: enterQArray()
+{
+    cout << "Please enter the size of the array: ";
+    cin >> size;
+    for(int i = 0; i < size; i++)
+    {
+        cout << "Please enter the value of the array element " << i + 1 << ": ";
+        cin >> arr[i];
+    }
+} 
+//return size, which will be one of the parameters
+int QuickSort :: returnSize()
+{
+    return size;
+}
+//carry out partition of array
+int QuickSort :: partition(int left, int right)
+{
+    int v, temp1;
+    v = arr[left];
+    i = left;
+    j = right + 1;
+    do
+    {
+        do
+            i++;
+            
+        while(arr[i] < v && i <= right);
+        
+        do
+            j--;
+        while(v < arr[j]);
+        
+        if(i < j)
+        {
+            temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }while(i < j);
+    
+    arr[left] = arr[j];
+    arr[j] = v;
+    
+    return(j);
+}
+//use quicksort as recursive to sort until array is sorted
+void QuickSort :: quickSort(int left, int right) 
+{ 
+    if( left < right)
+    {
+        j = partition(left, right);
+        quickSort(left, j - 1);
+        quickSort(j + 1, right);
+    }
+}
+//display array
+int QuickSort :: displaySortQuick()
+{
+    cout << "Here is the sorted array: " << endl;
+    for(int i = 0; i < size; i++)
+    {
+        cout << arr[i];
+        cout << " ";
+    }
+    cout << endl;
+}
+```
+### selectsort.h
+```cpp:selectsort.h
+#ifndef SELECTSORT_H
+#define SELECTSORT_H
+
+//declare class for select sort
+class SelectSort
+{
+private:
+    int size, i, arr[50], j, temp;      
+public:
+    int enterSArray();
+    int sortSelect();
+    int displaySortSelect();
+};
+
+#endif
+```
+### selectsort.cpp
+Here is a visual:
+![SelectSort](/images/select.gif)
+```cpp:selectsort.cpp
+#include <iostream>
+#include "SELECTSORT.h"
+using namespace std;
+
+//find values for array, size
+int SelectSort :: enterSArray()
+{
+    cout << "Please enter the size of the array: ";
+    cin >> size;
+    for(int i = 0; i < size; i++)
+    {
+        cout << "Please enter the value of the array element " << i + 1 << ": ";
+        cin >> arr[i];
+    }
+}
+//carry out select sort method
+int SelectSort :: sortSelect()
+{
+    for(int i = 1; i < size; i++)
+    {
+        temp = arr[i];
+        j = i-1;
+        while ((temp < arr[j]) && (j >= 0))
+        {
+            arr[j+1] = arr[j];
+            j = j-1;
+        }
+        arr[j+1] = temp;
+    }
+
+}
+//display sorted array
+int SelectSort :: displaySortSelect()
+{
+    cout << "Here is the sorted array: " << endl;
+    for(int i = 0; i < size; i++)
+    {
+        cout << arr[i];
+        cout << " ";
+    }
+    cout << endl;
+}
+```
+### MultifileOOPAbdul.cpp
+In this file, I create objects based on the class of the sorting algorithm my user chooses. I then sort the array they choose to input.
+
+```cpp:MultifileOOPAbdul.cpp
+//include header files, iostream
+#include <iostream>
+#include "BUBBLESORT.h"
+#include "INSERTSORT.h"
+#include "SELECTSORT.h"
+#include "QUICKSORT.h"
+using namespace std;
+
+int main() 
+{
+    //ask user what type of sort they would like to use
+    char sorttype;
+    cout << "What type of sort would you like to use? (b, s, i, q) " << endl;
+    cin >> sorttype;
+    
+    //create object, then carry out sort
+    if(sorttype == 'b')
+    {
+        BubbleSort b;
+        b.enterBArray();
+        b.sortBubble();
+        b.displaySortBubble();
+    }
+    else if(sorttype == 's')
+    {
+        Selectsort s;
+        s.enterSArray();
+        s.sortSelect();
+        s.displaySortSelect();
+    }
+    else if(sorttype == 'i')
+    {
+        Insertsort i;
+        i.enterIArray();
+        i.sortInsert();
+        i.displaySortInsert();
+    }
+    else if(sorttype == 'q')
+    {
+        Quicksort q;
+        q.enterQArray();
+        q.quickSort(0, q.returnsize() - 1);
+        q.displaySortQuick();
+    }
+    return 0;
+}
+```
+Thanks for reading!
+
