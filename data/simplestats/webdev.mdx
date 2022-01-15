@@ -44,25 +44,25 @@ You now have your project, pretty easy right?
 
 Let’s go over what a bunch of the files mean. These are the short notes I recorded when I tried to learn more about web development. They are not supposed to give you the full picture, but give you more support when you try to create your own project.
 
-**Package.json**: lives in root directory of project; needs name, version, scripts, dependencies; package version number, human readable, dependencies needed by project, enables npm (uses javascript and command line to run programs) or yarn to start project
+**Package.json**: lives in root directory of project; needs name, version, scripts, dependencies; package version number, human readable, dependencies needed by project, enables npm (uses javascript and command line to run programs) or yarn to start project; look here to see the cool npm packages I used in my code
 
 **Yarn.lock**: locks down dependencies in package.json file, so, if dependency changed by creator, you don’t get different dependencies, what you imported will be in this file
 
-**.gitignore**: git tracks changes in files, gitignore just lists files you want left alone be git I think?
+**.gitignore**: git tracks changes in files, gitignore just lists files you want left alone be git
 
 **Theme.js**: how you want your fonts, etc to look like, imported from chakra ui, const overrides means all our fonts will be the same, we change from default node.js fonts
 
 **Prism.js**: styling for website, makes the code on your website look nice
 
-**Public**: where I keep images
+**Public**: where I keep images, sitemap
 
-**Lib/mdx.js**: connect mdx files using slug to blog, show word count and reading time, get mdx components, I think grey matter organizes title, process.cwd() get working directory of node.js file, export async has something to do with scheduling code to be run later, I think rendertostring has something to do with measuring time of accessing mdx files, rehype and remark take care of headings, code titles? .reduce executes reducer function, I think its adding the mdx files to the blog, basically get url of all mdx files, get static props gets each blog post
+**Lib/mdx.js**: connect mdx files using slug to blog, show word count and reading time, get mdx components, I think grey matter organizes title, process.cwd() get working directory of node.js file, export async has something to do with scheduling code to be run later, I think rendertostring has something to do with measuring time of accessing mdx files, rehype and remark take care of headings, code titles? .reduce executes reducer function, I think its adding the mdx files to the blog, basically get url of all mdx files, get static props gets each blog post, data passed to MDXContent called props, context passes data without individually passing each props
 
-**Layouts/blog.js**: use react, add date, use container from components for style, get slug and connect it to mdx files from data folder, deals with getting path of file, add picture to blog posts
+**Layouts/blog.js**: use react, add date, use container from components for style, get slug and connect it to mdx files from data folder, deals with getting path of file, add al horford picture to blog posts
 
 **Layout/simplestats.js**: same thing basically as layout/blog.js, just replaced blog route with simplestats 
 
-**/data**: contains markdown files for simplestats and blog page, this is where the blog posts are 
+**/data**: contains markdown files for simplestats and blog page, this is where the blog posts are, mdx will turn the files here to jsx
 
 **Components/BlogPost.js & Components/SimpleStatsPost.js**:  use colormode to set text color in light and dark mode, add information from post and pass it to blog layout, link blog layout to slug (URL)
 
@@ -70,25 +70,25 @@ Let’s go over what a bunch of the files mean. These are the short notes I reco
 
 **Components/DarkModeSwitch**: use chakra dark mode icon 
 
-**Components/Container**: contains default page layout, children is content of page 
+**Components/Container**: contains default page layout, children is content of page, import footer at end of container 
 
-**Components/MDXComponents**: map the markdown element to html, add styles to html, pass props to p tag, can edit style of blog pages here 
+**Components/MDXComponents**: map the markdown element to html, add styles to html, pass props to p tag, can edit style of blog pages here (p tag, header tags, etc.)
 
 **Pages/api/hello.js**: simple api router using json 
 
 **Pages/blog/[slug].js**: create url for markdown files, so I can create as many markdown files as I want and they are connected to blog page, dynamic route, next/router shows dynamic route to user, grab dynamic rout using router.query, paths mapped to getStaticpaths, working with 1 requested blog post, plugins for page styling 
 
-**Pages/simplestats/[slug].js**: same as Pages/blog/[slug].js but links to simplestats 
+**Pages/simplestats/[slug].js**: same as Pages/blog/[slug].js but links to simplestats , animation for individual blog pages
 
-**Pages/_app.js**: import mdxcomponents, wrap it in components; entry point to app, wrap app in chakra ui
+**Pages/_app.js**: import mdxcomponents, wrap it in components; entry point to app, wrap app in chakra ui, use nprogress for progress bar
 
-**Pages/_document.js**: add to html and body tags, override default nextjs document file 
+**Pages/_document.js**: add to html and body tags, override default nextjs document file, google analytics script for tracking page views
 
 **Pages/blog.js**: return how blog page looks like, number of posts with .length, search icon, get posts from blog, sort by date published, tools from chakra ui 
 
-**Pages/contactme.js**: simple contact me js file with form to get users to subscribe 
+**Pages/contactme.js**: simple contact me js file with form to get users to subscribe, subscription done by mailchimp, p5.js iframe
 
-**Pages/index.js**: root of website, first page user sees when they select url 
+**Pages/index.js**: root of website, first page user sees when they select url, animate.css for page transition, import container for page layout, chakra ui for user interface and styling, animated hand made from keyframes, react-responsive so that page looks good on mobile, bubbles made with react-tsparticles, typewriter for moving text, import techstack from components, create specific footer for mobile screens
 
 **Pages/simplestats.js**: similar to Pages/blog.js 
 
@@ -126,7 +126,7 @@ Let’s go over what a bunch of the files mean. These are the short notes I reco
     * … turns array into individual elements, makes it easier to edit or read what is in array
 
 ### Some more important information:
-1.	The DOM helps your browser understand what it should show on your screen. It is like an address book, and every element in the DOM has a unique ID. The DOM only registers elements with ID tags.
+1.	The DOM helps your browser understand what it should show on your screen. It is like an address book, and every element in the DOM has a unique ID. The DOM only registers elements with ID tags. React creates a virtual DOM.
 2. ReactJS is a library, and it allows you to combine JavaScript and HTML. A DOM is like a tree, and it represents the connections between different tags. React allows you to easily manipulate the DOM by creating a Virtual DOM, and it can take in any updates made by the user. It can then quickly update the actual DOM, without all of the headaches and loss of speed involved when you directly manipulate the DOM.
 3.	const { id } = router.query, gets the individual id
 4.	export const getServerSideProps, async function, get your data, return props
@@ -135,11 +135,7 @@ Let’s go over what a bunch of the files mean. These are the short notes I reco
 7.	.next folder has server
 8.	Create static website with npm run build and put && next export to build
 9.	In api, make sure res.status(200), makes sure connection is good
-10. **Nextjs is react framework for production, easier to implement react components**
-   * Simplifies building react application
-   * No need for 3rd party router
-   * Html generated in advance
-   * Can create api
+10. **Nextjs is react framework for production, easier to implement react components => Simplifies building react application, No need for 3rd party router, HTML generated in advance, Can create api**
 15. React is declarative, react dom library builds actual UI, tell react what to do, it gets it done, you don’t have to specify steps
 16. CSS stands for cascading style sheets
 17. Stuff in body tag gets rendered to browser
