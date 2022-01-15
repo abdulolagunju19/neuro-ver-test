@@ -9,7 +9,7 @@ export default function SimpleStats({ mdxSource, frontMatter }) {
         components: MDXComponents
     })
 
-    return <SimpleStatsLayout className= "animate__animated animate__fadeIn" frontMatter={frontMatter}>{content}</SimpleStatsLayout>
+    return <div className= "animate__animated animate__fadeIn animate__delay-1s"><SimpleStatsLayout frontMatter={frontMatter}>{content}</SimpleStatsLayout></div>
 }
 
 export async function getStaticPaths() {
