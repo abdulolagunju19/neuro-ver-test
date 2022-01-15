@@ -9,7 +9,7 @@ export default function Blog({ mdxSource, frontMatter }) {
         components: MDXComponents
     })
 
-    return <div className= "animate__animated animate__fadeIn animate__delay-1s"><BlogLayout frontMatter={frontMatter}>{content}</BlogLayout></div>
+    return <div className= "animate__animated animate__fadeIn"><BlogLayout frontMatter={frontMatter}>{content}</BlogLayout></div>
 }
 
 export async function getStaticPaths() {
