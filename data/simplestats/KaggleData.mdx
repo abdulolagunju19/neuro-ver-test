@@ -6,11 +6,11 @@ summary: 'I provide a tutorial on using python to deal with a dataset from Kaggl
 
 # Tutorials
 
-I won't lie. The first time I looked at some python code, it seemed daunting. However, there are many resources online that can help you get used to python code. I suggest starting here: [PyForNeuro](https://pyforneuro.com/) 
+I won't lie. The first time I looked at some Python, it seemed daunting. As you know, Python is a programming language. There are many resources online that can help you gain experience with Python. I suggest starting here: [PyForNeuro](https://pyforneuro.com/) 
 
 Take your time working through more and more problems with code, and it will become easier over time just like any other skill. 
 
-So, back to what this article is actually about. We're going to take a look at a kaggle dataset about medical insurance.
+So, back to what this article is actually about. We're going to take a look at a Kaggle dataset about medical insurance.
 
 ### Let's begin! Setting yourself up.
 ![Image](/images/begin.gif)
@@ -18,23 +18,25 @@ So, back to what this article is actually about. We're going to take a look at a
 I like to use spyder to perform my analyses. Spyder is an application you can use to write your code. To download spyder, I just downloaded anaconda. This video explains it pretty well for windows 10 users: 
 [Install Anaconda Python, Jupyter Notebook And Spyder on Windows 10](https://youtu.be/5mDYijMfSzs) 
 
-So, the first thing I like to do is download the dataset I would like to look into. For now, I mainly use CSV files. CSV stands for comma-separated values, and it is a text file that allows you to save data in a table. You can open CSV files with excel. To easily access CSV files in my code, I created a repository in my Github account that contains the CSV files I downloaded from kaggle. 
+So, the first thing I like to do is download the dataset I would like to look into. For now, I mainly use CSV files. 
 
-To create a repository on github, first you must create an account on github. It should be smooth sailing from there, and I don't think I need to go further into that. Email me if you have any problems.
+CSV stands for comma-separated values. A CSV file is a text file that allows you to save your data in a table. You can open your CSV files with Excel. To easily access CSV files in my code, I created a repository in my Github account that contains the CSV files I downloaded from Kaggle. 
 
-Now, look through kaggle and download the dataset you like (Unfortunately, Github only allows you to upload csv files that are less than 25mb). If this is your first time using kaggle, just click on the link below called Medical Insurance Kaggle Dataset so you can easily get started. 
+To create a repository on Github, first you must create an account on Github. It should be smooth sailing from there, and I don't think I need to go further into that. Email me if you have any problems.
+
+Now, look through Kaggle and download the dataset you like (Unfortunately, Github only allows you to upload CSV files that are less than 25mb). If this is your first time using Kaggle, just click on the link below called Medical Insurance Kaggle Dataset so you can easily get started. 
 
 Here is the link to the dataset: [Medical Insurance Kaggle Dataset](https://www.kaggle.com/mirichoi0218/insurance)
 
-Now that you have spyder and the CSV file you need in your repository, click on the CSV file on github. Then, click raw. Copy the URL, and we are ready to get to work.
+Now that you have spyder and the CSV file you need in your repository, click on the CSV file on Github. Then, click raw. Copy the URL, and we are ready to get to work.
 
-This video explains getting the kaggle url if you want very detailed instructions: [Create URL LINK for your DATA from CSV files](https://youtu.be/jDaWna1IRmY)
+This video explains getting the Kaggle url if you want very detailed instructions: [Create URL LINK for your DATA from CSV files](https://youtu.be/jDaWna1IRmY)
 
-So, I will briefly explain how I will analyze this insurance data. I will firstly write some code on python to describe the variables in the dataset, standard deviations, etc. Then I will use graphs such as histograms, bar plots and correlation matrices to see what the data reveals. For you to learn this easily, you should have spyder open and ready to go on your computer.
+So, I will briefly explain how I will analyze this insurance data. Firstly, I will write some code (in Python) to describe the variables in the dataset, standard deviations, etc. Then I will use graphs such as histograms, bar plots and correlation matrices to see what the data reveals. For you to learn this easily, you should have spyder open and ready to go on your computer.
 
 Before I start analyzing the code, I need to import the libraries I will use. In programming, you don't reinvent the wheel every time you want to accomplish a task. You use the tools already available, and that is what I will do here. 
 
-Here is the first bit of code. On spyder, I created a new file called insurance.py.
+Here is the first bit of code. On spyder, I created a new file called insurance.py. A file that ends in .py will contain Python.
 ```python:insurance.py
 #import libraries needed
 import pandas as pd
@@ -117,7 +119,7 @@ We then use len(df) to check the difference of the length of the dataframe after
 
 It is important to clean up your data before you analyze it further, and the more complicated it becomes, the more cleanup it will probably require.
 
-### Let's make some figures
+### Let's Make Some Figures
 
 In the following section, I will show you how you can create some simple figures to help you with your data analysis. There are many more tools, but I will keep the tools I use for this analysis very simple.
 ```python:insurance.py
