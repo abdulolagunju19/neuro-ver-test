@@ -217,7 +217,7 @@ export default function Index() {
             <br />
             <Text color={colorSecondary[colorMode]}> I want to thank Benjamin Carlson for his personal website tutorial, it helped me get my feet off the ground in web development. His Website:{' '}
               <Link href='https://www.benjamincarlson.io/' isExternal>
-                Benjamin Carlson <ExternalLinkIcon mx='2px' />
+                Benjamin Carlson 
               </Link> 
             </Text>
             <br />
