@@ -215,7 +215,11 @@ export default function Index() {
             <br />
             <Text color={colorSecondary[colorMode]}> I'm a Neuroscience student at the University of Alberta. This is my personal website, where I write about statistics, neuroscience, and display my projects. I created this website because I believe that complicated ideas should be understandable to the general public. I want to share everything that I have learned, and I hope that it helps you. </Text>
             <br />
-            <Text color={colorSecondary[colorMode]}> I want to thank Benjamin Carlson for his personal website tutorial, it helped me get my feet off the ground in web development. His Website:{' '}<Link href='https://www.benjamincarlson.io/'>Benjamin Carlson</Link> </Text>
+            <Text color={colorSecondary[colorMode]}> I want to thank Benjamin Carlson for his personal website tutorial, it helped me get my feet off the ground in web development. His Website:{' '}
+              <Link href='https://www.benjamincarlson.io/' isExternal>
+                Benjamin Carlson <ExternalLinkIcon mx='2px' />
+              </Link> 
+            </Text>
             <br />
             <div>
             <Image
