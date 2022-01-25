@@ -1,4 +1,5 @@
 # Neuro_Website
+This was created using Benjamin Carlson's website tutorial: https://github.com/bjcarlson42/personal-website-nextjs-chakra
 This is my personal website. It will describe some simple data analysis using python, new and interesting neuroscience papers, and any ideas I come up with in my free time.<br />
 
 Enjoy!!!
