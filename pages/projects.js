@@ -1,71 +1,144 @@
-import React, { useState } from 'react'
+import useSWR from 'swr'
+import Head from 'next/head'
 import {
     Flex,
-    Link,
     Heading,
     Text,
-    Stack,
-    useColorMode,
-    Image,
-    Spacer
+    Link,
+    Stack, 
+    useColorMode
 } from '@chakra-ui/react'
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { NextSeo } from 'next-seo'
 
-const ProjectCard = ({ title, href, children }) => {
+import ProjectCard from '../components/ProjectCard'
+import Container from '../components/Container'
+
+export default function Projects() {
+
+    const url = 'https://abneuro.vercel.app/projects/'
+    const title = 'Projects – Abdul-Samad Olagunju'
+    const description = 'My Coding Projects.'
+
     const { colorMode } = useColorMode()
-    const borderColor = {
-        light: 'gray.200',
-        dark: 'gray.600'
+    const iconColor = {
+        light: 'gray.600',
+        dark: 'gray.300'
     }
-    const colorSecondary = {
-        light: 'gray.700',
-        dark: 'gray.400'
-    }
-    const boxShadowColor = {
-        light: '0px 8px 26px rgba(0, 0, 0, 0.1)',
-        dark: '0px 8px 26px rgba(0, 0, 0, 0.9)'
-    }
-    const [opacity, setOpacity] = useState(0)
-    return (
-        <Link
-            href={href}
-            title={title}
-            isExternal
-            _hover={{
-                boxShadow: boxShadowColor[colorMode],
-                textDecoration: 'none',
-                transform: `translateY(-4px)`
-            }}
-            mt={4}
-            onMouseOver={() => setOpacity(1)}
-            onMouseLeave={() => setOpacity(0)}
-            width="100%"
-            borderRadius='2xl'
-        >
-            <Flex
-                align="center"
-                border="1.5px solid"
-                borderColor={borderColor[colorMode]}
-                borderRadius='2xl'
-                p={4}
+    const fetcher = (...args) => fetch(...args).then((res) => res.json());
+    const { data, error } = useSWR('/api/github', fetcher)
+    if (error) {
+        return (
+            <Container>
+            <Stack
+                as="main"
+                spacing={8}
+                justifyContent="center"
+                alignItems="flex-start"
+                m="0 auto 4rem auto"
+                maxWidth="700px"
+                px={2}
             >
-                <Stack>
-                    <Flex justify="space-between">
-                        <Heading
-                            as="h4"
-                            size="md"
-                            fontWeight="bold"
-                            mb={2}
+                <Flex
+                    flexDirection="column"
+                    justifyContent="flex-start"
+                    alignItems="flex-start"
+                    maxWidth="700px"
+                    px={4}
+                    className="animate__animated animate__fadeInLeft"
+                >
+                    <Text>Failed to load projects!</Text>
+                </Flex>
+            </Stack>
+        </Container>
+        )
+    }
+    if (!data) {
+        return (
+        <Container>
+            <Stack
+                as="main"
+                spacing={8}
+                justifyContent="center"
+                alignItems="flex-start"
+                m="0 auto 4rem auto"
+                maxWidth="700px"
+            >
+                <Flex
+                    flexDirection="column"
+                    justifyContent="flex-start"
+                    alignItems="flex-start"
+                    maxWidth="700px"
+                    px={4}
+                    className="animate__animated animate__fadeInLeft"
+                >
+                    <Text>Loading...</Text>
+                </Flex>
+            </Stack>
+        </Container>
+        )
+    }
+    return (
+        <>
+            <NextSeo
+            title={title}
+            description={description}
+            canonical={url}
+            openGraph={{
+                url,
+                title,
+                description
+            }}
+            />
+            <Container>
+                <Head>
+                <title>Projects</title>
+                </Head>
+                <Stack
+                    as="main"
+                    spacing={8}
+                    justifyContent="center"
+                    alignItems="flex-start"
+                    m="0 auto 4rem auto"
+                    maxWidth="800px"
+                >
+                    <Flex
+                        flexDirection="column"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                        maxWidth="700px"
+                        px={4}
+                        className="animate__animated animate__fadeInLeft"
+                    >
+                        <Heading 
+                            letterSpacing="tight" 
+                            mb={4} 
+                            as="h1" 
+                            size="2xl" 
+                            transition='all 0.25s'
+                            transitionTimingFunction='spring(1 100 10 10)'
+                            _hover={{ transform: `translateY(-4px)`}}
                         >
-                            {title} 
+                            Learn about my Projects ({data.repos.length})
                         </Heading>
+
+                            {
+                                data.repos.map((p) => (
+                                    <ProjectCard
+                                        title={p.name}
+                                        href={p.url}
+                                        color={iconColor[colorMode]}
+                                    >
+                                        <Text>{p.language}</Text>
+                                        <Text>URL: {p.url}</Text>
+                                        <Text>Size: {p.size} KB</Text>
+                                    </ProjectCard>
+                                ))
+                            }
+
                     </Flex>
-                    <Text color={colorSecondary[colorMode]}>{children}</Text>
                 </Stack>
-                <Spacer/><ExternalLinkIcon opacity={opacity} fontSize="2xl" />
-            </Flex>
-        </Link>
+            </Container>
+        </>
     )
 }
 
-export default ProjectCard
