@@ -70,6 +70,11 @@ const Container = ({ children }) => {
                             Blog
                         </Button>
                     </NextLink>
+                    <NextLink href="/projects" passHref>
+                        <Button as="a" variant="ghost" p={[1, 2, 4]} _hover={{ backgroundColor: navHoverBg[colorMode] }}>
+                            Projects
+                        </Button>
+                    </NextLink>
                     <NextLink href="/contactme" passHref>
                         <Button as="a" variant="ghost" p={[1, 2, 4]} _hover={{ backgroundColor: navHoverBg[colorMode] }}>
                             Contact Me
