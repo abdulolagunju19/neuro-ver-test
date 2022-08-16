@@ -9,7 +9,7 @@ export default async (req, res) => {
     });
 
     json.forEach(p => {
-        if(p.size > 100)
+        if(p.stargazers_count > 0)
         {
             projectsList.push({
                 "name": p.name,
