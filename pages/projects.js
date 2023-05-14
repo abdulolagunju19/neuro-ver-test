@@ -129,7 +129,6 @@ export default function Projects() {
                                         color={iconColor[colorMode]}
                                     >
                                         <Text>{p.language}</Text>
-                                        <Text>URL: {p.url}</Text>
                                         <Text>Size: {p.size} KB</Text>
                                     </ProjectCard>
                                 ))
